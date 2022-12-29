@@ -1,0 +1,1 @@
+{"version":3,"file":"example.js","sources":["../../src/test/example.js"],"sourcesContent":["import React from 'react'\n\nexport const ExampleComponent = ({ text }) => {\n  return <div>Example Component: {text}</div>\n}\n"],"names":["_ref","text","React","createElement"],"mappings":"+LAEgC,SAAcA,GAAA,IAAXC,IAAAA,KACjC,OAAOC,EAAAA,QAAAC,cAAA,MAAA,KAAA,sBAAyBF,EACjC"}
