@@ -1,1 +1,1 @@
-"use strict";var e=require("./DataUtil.js");require("../_commonjsHelpers-68cdf74f.js"),describe("getSchemaGeneratedData",(function(){it("is exported",(function(){expect(e.getSchemaGeneratedData).toBeTruthy()}))}));
+"use strict";var e=require("./DataUtil.js");require("json-schema-faker"),describe("getSchemaGeneratedData",(function(){it("is exported",(function(){expect(e.getSchemaGeneratedData).toBeTruthy()}))}));
