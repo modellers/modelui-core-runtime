@@ -24,9 +24,6 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
-  "ISSUE_WITH_ELECTRON_exports": {
-    "./util/IconUtil": "./src/util/IconUtil.js"
-  },
   "peerDependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
@@ -66,8 +63,5 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "font-awesome": "^4.7.0",
-    "json-schema-faker": "^0.5.0-rcv.44"
-  }
+  "dependencies": {}
 }
