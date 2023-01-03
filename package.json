@@ -24,7 +24,7 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
-  "exports": {
+  "ISSUE_WITH_ELECTRON_exports": {
     "./util/IconUtil": "./src/util/IconUtil.js"
   },
   "peerDependencies": {

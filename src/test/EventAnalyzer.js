@@ -8,11 +8,11 @@
 // TODO: https://ajv.js.org/security.html
 import Ajv from 'ajv'
 import { compareDeep } from '../util/ObjUtil'
-import StateManager from './StateManager'
+import StateManager from '../event/StateManager'
 import Manager from '../layout/Manager'
-import Event from './Event'
+import Event from '../event/Event'
 // schema utils
-import { getSchemaGeneratedData } from '../util/SchemaUtil'
+import { getSchemaGeneratedData } from '../test/DataUtil'
 
 class EventAnalyzer {
   static _instance = null

@@ -1,10 +1,10 @@
 /* eslint-disable no-const-assign */
 /* eslint-disable no-unused-vars */
 import EventAnalyzer from './EventAnalyzer'
-import StateManager from './StateManager'
+import StateManager from '../event/StateManager'
 import Manager from '../layout/Manager'
 // FIXME: import { registerList } from '../components/List/List'
-import CommonEvents from './CommonEvents'
+import CommonEvents from '../event/CommonEvents'
 
 const simple_schema = {
   $id: 'simple_schema',

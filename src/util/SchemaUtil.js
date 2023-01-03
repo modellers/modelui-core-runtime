@@ -1,10 +1,13 @@
-import jsf from 'json-schema-faker'
-import MD5 from 'object-hash'
-
-export const generateIdentifier = () => {
-  return (MD5(new Date().toISOString()) + '').substring(0, 12)
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    // eslint-disable-next-line one-var
+    const r = (Math.random() * 16) | 0,
+      // eslint-disable-next-line eqeqeq
+      v = c == 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
 }
 
-export const getSchemaGeneratedData = (schema) => {
-  return jsf.generate(schema)
+export const generateIdentifier = () => {
+  return uuidv4()
 }
