@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sources":["../../src/test/index.js"],"sourcesContent":["import EventAnalyzer from '../test/EventAnalyzer'\n\nexport default {\n  EventAnalyzer\n}\n"],"names":["index","EventAnalyzer"],"mappings":"mRAEA,IAAeA,EAAA,CACbC,cAAAA"}

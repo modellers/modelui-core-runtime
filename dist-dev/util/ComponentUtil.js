@@ -1,2 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("../_rollupPluginBabelHelpers-aae655da.js"),t=require("../StateManager-3e28b6d9.js");require("../event/Event.js"),exports.renderContent=function(n,r){var a=r.content,o=e._typeof(a);return"object"===o?a=t.Manager.ComponentManager.getInstance().getComponentInstance(a.type,a||{}):"string"!==o&&(a="Expected object for content having id "+r.id),a};
-//# sourceMappingURL=ComponentUtil.js.map

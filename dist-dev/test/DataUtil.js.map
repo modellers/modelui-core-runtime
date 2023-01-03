@@ -1,1 +1,0 @@
-{"version":3,"file":"DataUtil.js","sources":["../../src/test/DataUtil.js"],"sourcesContent":["import jsf from 'json-schema-faker'\n\nexport const getSchemaGeneratedData = (schema) => {\n  return jsf.generate(schema)\n}\n"],"names":["schema","jsf","generate"],"mappings":"iNAEsC,SAACA,GACrC,OAAOC,EAAG,QAACC,SAASF,EACtB"}
