@@ -1,4 +1,4 @@
-import MD5 from 'object-hash'
+import { md5 as MD5 } from 'md5'
 import _loadash from 'lodash'
 
 export const isObject = (obj) => {
@@ -42,9 +42,8 @@ export const removeItemIndexByIndex = (idx, items) => {
 
 // https://stackoverflow.com/questions/14733374/how-to-generate-an-md5-file-hash-in-javascript
 
-export const md5 = (str) => {
-  return MD5(str).toString()
-}
+export const md5 = MD5
+
 /* NOTUSED
 export const deepCopy = (inObject) => {
     let outObject, value, key
