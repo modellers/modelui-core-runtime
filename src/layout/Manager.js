@@ -129,5 +129,4 @@ class ComponentManager {
   }
 }
 
-window.componentManager = ComponentManager
 export default { ComponentManager }

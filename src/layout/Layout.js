@@ -1,5 +1,11 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import Manager from './Manager'
+import LayoutComponent, {
+  events as eventsLayout,
+  triggers as triggersLayout,
+  config as configLayout
+} from './LayoutComponent'
 
 export function LayoutRender(
   container_id,
@@ -23,9 +29,9 @@ export function LayoutRender(
     if (ignore.indexOf(item.type) > -1) {
       console.warn(
         'Using item type=' +
-          item.type +
-          ' not supported in layout for ' +
-          container_id
+        item.type +
+        ' not supported in layout for ' +
+        container_id
       )
       continue
     }
@@ -83,4 +89,20 @@ export function Layouter(props) {
   )
 }
 
-export default { LayoutRender, Layouter }
+export function registerLayout(component_manager) {
+  // self register component to layout manager
+  component_manager.registerComponent({
+    component: Layout,
+    type: configLayout.type,
+    events: eventsLayout,
+    triggers: triggersLayout,
+    config: configLayout
+  })
+}
+
+export function Layout(props) {
+  // lets enumerate schema to extract uiSchema and validation
+  return <LayoutComponent {...props} />
+}
+
+export default { LayoutRender, Layouter, Layout }
