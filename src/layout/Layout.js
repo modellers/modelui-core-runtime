@@ -92,7 +92,7 @@ export function Layouter(props) {
 export function registerLayout(component_manager) {
   // self register component to layout manager
   component_manager.registerComponent({
-    component: Layout,
+    component: Layouter,
     type: configLayout.type,
     events: eventsLayout,
     triggers: triggersLayout,
