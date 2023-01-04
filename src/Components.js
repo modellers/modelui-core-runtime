@@ -4,7 +4,7 @@ import Manager from './layout'
 // Components
 import { registerLayout } from './layout/Layout'
 
-function registerComponents(component_manager) {
+function registerCoreComponents(component_manager) {
   if (!component_manager) {
     component_manager = Manager.ComponentManager.getInstance()
   }
@@ -17,4 +17,4 @@ function registerComponents(component_manager) {
   registerLayout(component_manager)
 }
 
-export default { registerComponents }
+export default { registerCoreComponents }
