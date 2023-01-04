@@ -105,4 +105,4 @@ export function Layout(props) {
   return <LayoutComponent {...props} />
 }
 
-export default { LayoutRender, Layouter, Layout }
+export default { LayoutRender, Layouter }
