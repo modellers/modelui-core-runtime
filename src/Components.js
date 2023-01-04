@@ -2,7 +2,7 @@
 import Manager from './layout'
 
 // Components
-import { registerLayout } from './layout/Layout'
+import { registerLayout, Layout as _Layout } from './layout/Layout'
 
 export function registerCoreComponents(component_manager) {
   if (!component_manager) {
@@ -16,3 +16,5 @@ export function registerCoreComponents(component_manager) {
 
   registerLayout(component_manager)
 }
+
+export const Layout = _Layout
