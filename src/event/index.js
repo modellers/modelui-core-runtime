@@ -1,6 +1,5 @@
 import CommonEvents from './CommonEvents'
 import Event from './Event'
-import EventAnalyzer from './EventAnalyzer'
 import InputBase from './InputBase'
 import ListBase from './ListBase'
 import ListSchemaBase from './ListSchemaBase'
@@ -12,7 +11,6 @@ import StateManager from './StateManager'
 export default {
   CommonEvents,
   Event,
-  EventAnalyzer,
   InputBase,
   ListBase,
   ListSchemaBase,

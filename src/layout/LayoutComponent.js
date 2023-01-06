@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 
 import {
@@ -8,9 +9,9 @@ import {
 } from './LayoutBase'
 import { Layouter } from './Layout'
 
-const events = baseEvents
-const triggers = baseTriggers
-const options = {
+export const events = baseEvents
+export const triggers = baseTriggers
+export const options = {
   id: 'layout',
   $schema: 'http://json-schema.org/draft-07/schema#',
   description: 'View options',
@@ -21,7 +22,7 @@ const options = {
   required: []
 }
 
-const config = {
+export const config = {
   name: 'Layout',
   type: 'layout',
   author: 'Kjartan Jónsson',
@@ -59,9 +60,9 @@ class LayoutComponent extends LayoutBase {
       if (ignore.indexOf(item.type) > -1) {
         console.warn(
           'Using item type=' +
-            item.type +
-            ' not supported in layout for ' +
-            container_id
+          item.type +
+          ' not supported in layout for ' +
+          container_id
         )
         continue
       }
