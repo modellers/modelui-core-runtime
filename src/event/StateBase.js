@@ -1,6 +1,6 @@
 import produce from 'immer'
 
-class StateInstance {
+export class StateInstance {
   state = {}
   mount = null
 
@@ -109,4 +109,63 @@ class StateInstance {
   }
 }
 
-export default { StateInstance }
+export class StateLess extends StateInstance {
+  /**
+   * Used to manage internal state of avatars
+   */
+  constructor(props) {
+    super(props)
+    this.props = props
+
+    // check for component manager
+    if (!this.props.manager) {
+      const newLocal =
+        'Manager was not provided through props for component ' + this.props.id
+      throw newLocal
+    }
+    /*
+    // make sure the manager is of correct type
+    if (this.props.manager.constructor.name !== 'ComponentManager') {
+      // eslint-disable-next-line no-throw-literal
+      throw (
+        "Constructor must be component manager. Got '" +
+        this.props.manager.constructor.name +
+        "' for component " +
+        this.props.id
+      )
+    }
+    */
+
+    this.eventManager = this.props.manager.getEventManager()
+  }
+
+  updateView = (action, arr, updated, data) => {
+    // extend by parent
+    return true
+  }
+
+  triggerEvent(event, data, evt) {
+    this.props.manager
+      .getEventManager()
+      .addEvent(this.props.id, event, data, evt)
+  }
+
+  triggerAction(action, data, evt) {
+    this.props.manager
+      .getEventManager()
+      .addAction(this.props.id, action, data, null, evt)
+  }
+
+  register(actions, events, component_info) {
+    this.props.manager
+      .getEventManager()
+      .register(this.props.id, actions, events, component_info)
+  }
+
+  setInstanceState(state) {
+    if (this.stateManager) {
+      this.stateManager.setState(state)
+    }
+  }
+}
+export default { StateInstance, StateLess }

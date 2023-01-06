@@ -1,5 +1,5 @@
 /***
-https://stackoverflow.com/questions/44719103/singleton-object-in-react-native 
+https://stackoverflow.com/questions/44719103/singleton-object-in-react-native
 
 import EventManager from './EventManager';
 

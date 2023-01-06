@@ -27,9 +27,10 @@ const _createComponent = (
     }
     */
   }
-
-  if (typeof renderer.create !== 'function') {
-    throw Error('_createComponent is missing renderer function')
+  if (renderer !== null) {
+    if (typeof renderer.create !== 'function') {
+      throw Error('_createComponent is missing renderer function')
+    }
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -74,8 +75,10 @@ export const createComponentClassTests = (
   if (typeof registerComponents !== 'function') {
     throw Error('createComponentClassTests is missing registerComponents')
   }
-  if (typeof renderer.create !== 'function') {
-    throw Error('createComponentClassTests is missing renderer')
+  if (renderer !== null) {
+    if (typeof renderer.create !== 'function') {
+      throw Error('createComponentClassTests is not a component renderer')
+    }
   }
   // TODO: run this before each
   componentManagerInstance.clearAll()

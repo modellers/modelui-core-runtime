@@ -1,0 +1,2 @@
+"use strict";var e=require("../layout/Manager.js"),r=require("./Data/Data.js");require("../_rollupPluginBabelHelpers-aae655da.js"),require("../event/Event.js"),require("./Data/ObjectCollection.js"),require("../event/ObjectBase.js"),require("../event/StateBase.js"),require("../util/ObjUtil.js"),require("./Data/MemoryManager.js"),require("./Data/XMLParser.js"),module.exports=function(t){t||(t=e.default.ComponentManager.getInstance()),r.registerObjectCollection(t),r.registerXML(t)};
+//# sourceMappingURL=Components.js.map

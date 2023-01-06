@@ -6,7 +6,6 @@ import ListSchemaBase from './ListSchemaBase'
 import TreeBase from './TreeBase'
 import StateBase from './StateBase'
 import StateBaseComponent from './StateBaseComponent'
-import StateManager from './StateManager'
 
 export default {
   CommonEvents,
@@ -16,6 +15,5 @@ export default {
   ListSchemaBase,
   TreeBase,
   StateBase,
-  StateBaseComponent,
-  StateManager
+  StateBaseComponent
 }
