@@ -15,3 +15,7 @@ export function renderContent(classes, item) {
   }
   return content
 }
+
+export default {
+  renderContent
+}
