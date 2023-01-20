@@ -3,6 +3,7 @@ import Manager from '../layout/Manager'
 
 // Components
 import { registerObjectCollection, registerXML } from './Data/Data'
+import { registerRequestObject } from './Network/Network'
 
 export default function registerComponents(component_manager) {
   if (!component_manager) {
@@ -15,5 +16,6 @@ export default function registerComponents(component_manager) {
     */
 
   registerObjectCollection(component_manager)
+  registerRequestObject(component_manager)
   registerXML(component_manager)
 }
