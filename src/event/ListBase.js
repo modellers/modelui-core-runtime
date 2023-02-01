@@ -470,7 +470,7 @@ export class StateList extends StateBase.StateInstance {
             const data = this.state.data.slice()
             const data_removed = data.splice(0, 1)
             if (this.updateView('pop_front', [], data_removed, data)) {
-              this.setState({ ...this.state, data: this.state.data })
+              this.setState({ ...this.state, data: data })
               // Event.EventManager.getInstance().addEvent(
               this.ddEvent = this.eventManager.addEvent(
                 this.props.id,
