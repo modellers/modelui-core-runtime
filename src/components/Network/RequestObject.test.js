@@ -18,21 +18,14 @@ describe('RequestObject protocol', () => {
     registerComponents,
     null,
     config,
-    ['insert', 'read', 'update', 'upsert', 'delete'],
+    ['read', 'convert'],
     [
-      'invalid',
-      'failure',
-      'inserting',
-      'inserted',
       'reading',
       'read',
-      'upserting',
-      'upserted',
-      'updating',
-      'updated',
-      'deleting',
-      'deleted',
-      'missing'
+      'failure_reading',
+      'converting',
+      'converted',
+      'failure_converting'
     ],
     {},
     undefined,
@@ -59,13 +52,18 @@ describe('RequestObject register', () => {
   })
 })
 /*
+http://www.jsontest.com/
+
+https://run.mocky.io/v3/513e6daa-641d-4505-b891-c2996fadd694
+https://designer.mocky.io/manage/delete/513e6daa-641d-4505-b891-c2996fadd694/1nm9ex3oPihQVbfGlLo4sqEKeTlZNLDaAaJM
+
 describe('RequestObject memory test', () => {
   beforeEach(() => {
     Event.EventManager.getInstance().clearAll()
     // eslint-disable-next-line no-unused-vars
     const requestObject = new RequestObject({
       id: 'test_collection',
-      type: 'object-request',
+      type: 'object_request',
       schema: {},
       data: {
         1: { id: '1', ok: 1 },
