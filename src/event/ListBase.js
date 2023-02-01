@@ -448,9 +448,10 @@ export class StateList extends StateBase.StateInstance {
         schema: {},
         handler: (obj) => {
           if (this.state.data.length > 0) {
-            this.state.data.splice(this.state.data.length - 1, 1)
-            if (this.updateView('pop', [], [], this.state.data)) {
-              this.setState({ ...this.state, data: this.state.data })
+            const data = this.state.data.slice()
+            const data_removed = data.splice(data.length - 1, 1) // remove item
+            if (this.updateView('pop', [], data_removed, data)) {
+              this.setState({ ...this.state, data: data })
               // Event.EventManager.getInstance().addEvent(
               this.ddEvent = this.eventManager.addEvent(
                 this.props.id,
@@ -465,16 +466,19 @@ export class StateList extends StateBase.StateInstance {
       pop_front: {
         schema: {},
         handler: (obj) => {
-          this.state.data.splice(0, 1)
-          if (this.updateView('pop_front', [], [], this.state.data)) {
-            this.setState({ ...this.state, data: this.state.data })
-            // Event.EventManager.getInstance().addEvent(
-            this.ddEvent = this.eventManager.addEvent(
-              this.props.id,
-              'changed',
-              { count: this.state.data.length, items: this.state.data },
-              {}
-            )
+          if (this.state.data.length > 0) {
+            const data = this.state.data.slice()
+            const data_removed = data.splice(0, 1)
+            if (this.updateView('pop_front', [], data_removed, data)) {
+              this.setState({ ...this.state, data: this.state.data })
+              // Event.EventManager.getInstance().addEvent(
+              this.ddEvent = this.eventManager.addEvent(
+                this.props.id,
+                'changed',
+                { count: this.state.data.length, items: this.state.data },
+                {}
+              )
+            }
           }
         }
       },
