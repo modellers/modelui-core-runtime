@@ -10,7 +10,6 @@ import {
 } from '../../util/TestUtil'
 import Manager from '../../layout/Manager'
 import registerComponents from '../Components'
-import Event from '../../event/Event'
 
 describe('RequestObject protocol', () => {
   const tests = createComponentClassTests(

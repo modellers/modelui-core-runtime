@@ -3,6 +3,7 @@ import Manager from './layout'
 
 // Components
 import { registerLayout, Layout as _Layout } from './layout/Layout'
+import { registerObjectCollection, registerXML } from './components/Data/Data'
 
 export function registerCoreComponents(component_manager) {
   if (!component_manager) {
@@ -15,6 +16,8 @@ export function registerCoreComponents(component_manager) {
   */
 
   registerLayout(component_manager)
+  registerXML(component_manager)
+  registerObjectCollection(component_manager)
 }
 
 export const Layout = _Layout
