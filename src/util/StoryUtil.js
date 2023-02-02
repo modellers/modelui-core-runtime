@@ -73,7 +73,6 @@ export const createEventTriggers = (
   trigger_data = trigger_data || {} // default none data
   return (
     <div>
-      <hr />
       {Object.keys(triggers).map((trigger_id, i) => {
         let values = { title: trigger_id + '_value', id: trigger_id + '_value' }
         if (trigger_data[trigger_id]) {
@@ -99,7 +98,6 @@ export const createEventTriggers = (
           </button>
         )
       })}
-      <hr />
     </div>
   )
 }
