@@ -7,7 +7,8 @@ import {
   events as baseEvents,
   triggers as baseTriggers
 } from './LayoutBase'
-import { Layouter } from './Layout'
+
+import { Layouter } from './Layouter'
 
 export const events = baseEvents
 export const triggers = baseTriggers
