@@ -428,7 +428,6 @@ export class ListSchemaBase extends StateBaseComponent.StateBaseComponent {
     }
     // debugger;
     // const change_row_idx = this.findItemIndexById(object_id.id, this.state.data);
-    // console.info(change_row_idx);
     // do the update
     this.triggerAction('push', [change])
     // this.state.data[change_row_idx] = mergeDeep (this.state.data[change_row_idx], change)
@@ -440,7 +439,7 @@ export class ListSchemaBase extends StateBaseComponent.StateBaseComponent {
   }
 
   exceptionCatched = (action_name, event_object) => {
-    console.info('ListBase: ' + action_name + ' --> ', event_object)
+    // console.info('ListBase: ' + action_name + ' --> ', event_object)
   }
 
   findItemIndexById = (id, data) => {
