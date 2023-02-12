@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /***
 https://stackoverflow.com/questions/44719103/singleton-object-in-react-native
 

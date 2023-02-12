@@ -23,6 +23,7 @@ class StateManager {
     return this._states[state_id]
   }
 
+  // eslint-disable-next-line prettier/prettier
   clearAll() { }
 
   createState(props) {
