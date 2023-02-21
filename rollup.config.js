@@ -7,18 +7,32 @@ import css from 'rollup-plugin-import-css'
 import json from '@rollup/plugin-json'
 import pkg from './package.json'
 
+// https://dev.to/remshams/rolling-up-a-multi-module-system-esm-cjs-compatible-npm-library-with-typescript-and-babel-3gjg
 // https://github.com/rollup/rollup/issues/2106
+
+const extensions = ['.js', '.ts']
+
 export default [
   {
     input: 'src/**/*.js',
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      exports: 'auto'
-    },
+    output: [
+      {
+        dir: 'dist/cjs',
+        format: 'cjs',
+        sourcemap: true,
+        exports: 'auto'
+      },
+      {
+        dir: 'dist/esm',
+        format: 'esm',
+        sourcemap: true,
+        exports: 'auto'
+      }
+    ],
     plugins: [
       babel({
         babelHelpers: 'bundled',
+        extensions,
         exclude: 'node_modules/**',
         presets: ['@babel/preset-env', '@babel/preset-react']
       }),

@@ -6,8 +6,12 @@
   "author": "modellers",
   "license": "MIT",
   "repository": "modellers/modelui-core-runtime",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    "require": "./dist/cjs/index.js",
+    "import": "./dist/esm/index.js"
+  },
   "source": "src/index.js",
   "engines": {
     "node": ">=10"
@@ -16,6 +20,8 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "run-s build",
+    "build:esm": "cross-env BABEL_ENV=esmUnbundled babel src --extensions '.ts' --out-dir 'lib/esm' --source-maps",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --extensions '.ts' --out-dir 'lib/cjs' --source-maps",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
     "test:lint": "eslint .",
@@ -29,7 +35,8 @@
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.0",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@babel/preset-env": "^7.19.0",
     "@babel/preset-react": "^7.18.6",
     "@rollup/plugin-babel": "^5.3.1",

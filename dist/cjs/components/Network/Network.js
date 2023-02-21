@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("./RequestObject.js");require("../../_rollupPluginBabelHelpers-aae655da.js"),require("../../event/Event.js"),require("../../event/StateBase.js"),exports.registerRequestObject=function(t){t.registerComponent({component:e.RequestObject,type:e.config.type,events:e.events,triggers:e.triggers,config:e.config})};
+//# sourceMappingURL=Network.js.map

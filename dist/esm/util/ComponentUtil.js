@@ -1,0 +1,2 @@
+import{j as e}from"../_rollupPluginBabelHelpers-55d249d8.js";import t from"../layout/Manager.js";import"../event/Event.js";function n(n,o){var r=o.content,a=e(r);return"object"===a?r=t.ComponentManager.getInstance().getComponentInstance(r.type,r||{}):"string"!==a&&(r="Expected object for content having id "+o.id),r}var o={renderContent:n};export{o as default,n as renderContent};
+//# sourceMappingURL=ComponentUtil.js.map

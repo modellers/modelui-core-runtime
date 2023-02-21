@@ -1,7 +1,5 @@
 # modelui-core-runtime
 
-https://dev.to/remshams/rolling-up-a-multi-module-system-esm-cjs-compatible-npm-library-with-typescript-and-babel-3gjg
-
 > Primitives and runtime
 
 [![NPM](https://img.shields.io/npm/v/modelui-core-runtime.svg)](https://www.npmjs.com/package/modelui-core-runtime) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
