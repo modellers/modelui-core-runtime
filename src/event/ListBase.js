@@ -589,7 +589,7 @@ export class ListBase extends StateBaseComponent.StateBaseComponent {
   }
 
   exceptionCatched = (action_name, event_object) => {
-    console.info('ListBase: ' + action_name + ' --> ', event_object)
+    // console.info('ListBase: ' + action_name + ' --> ', event_object)
   }
 
   findItemIndexById = (id, data) => {

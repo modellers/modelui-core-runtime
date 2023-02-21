@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /***
 https://stackoverflow.com/questions/44719103/singleton-object-in-react-native
 
@@ -45,8 +46,8 @@ class EventManager {
           ? 'null'
           : // Check if it is an alien object, for example created as {world:'hello'}
           typeof oObj.constructor !== 'function'
-          ? 'object'
-          : // else return object name (string)
+            ? 'object'
+            : // else return object name (string)
             oObj.constructor.name
     } else {
       // Test simple types (not constructed types)
@@ -54,12 +55,12 @@ class EventManager {
         typeof oObj === 'boolean'
           ? 'boolean'
           : typeof oObj === 'number'
-          ? 'number'
-          : typeof oObj === 'string'
-          ? 'string'
-          : typeof oObj === 'function'
-          ? 'function'
-          : false
+            ? 'number'
+            : typeof oObj === 'string'
+              ? 'string'
+              : typeof oObj === 'function'
+                ? 'function'
+                : false
     }
     return (res + '').toLowerCase()
   }
@@ -256,7 +257,6 @@ class EventManager {
   addEvent(cid, event_name, data, evt) {
     // are we watching this component
     if (this._watching[cid]) {
-      console.info('--> event ' + cid + ' :' + event_name)
       // are we watching this component event
       const actions = this._watching[cid][event_name] || []
       for (const a in actions) {
@@ -268,9 +268,7 @@ class EventManager {
 
   addAction(component_id, action_name, data, transform, evt) {
     if (this._actions[component_id]) {
-      console.info('--> action ' + component_id + ' :' + action_name)
       if (this._actions[component_id][action_name]) {
-        console.info('--> xx ')
         let transformed_data = data
         if (transform) {
           try {

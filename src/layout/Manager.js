@@ -23,7 +23,8 @@ class StateManager {
     return this._states[state_id]
   }
 
-  clearAll() {}
+  // eslint-disable-next-line prettier/prettier
+  clearAll() { }
 
   createState(props) {
     return this.createManager(props.id, props)
@@ -176,8 +177,7 @@ class ComponentManager {
   }
 
   getComponentInstance(component_type, parameters) {
-    // validate parameter inputs
-    console.info(component_type, parameters)
+    // TODO: validate parameter inputs
     // paramters
     parameters.manager = this
     // create component

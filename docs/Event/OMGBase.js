@@ -403,27 +403,26 @@ export class OMGBase extends StateBaseComponent.StateBaseComponent {
   }
 
   exceptionCatched = (action_name, event_object) => {
-    debugger
     console.info('OMG: ' + action_name + ' --> ', event_object)
   }
-  /*  
+  /*
     getData = () => {
       return this.state.data;
     }
-  
+
     showSelected = (id, idx) => {
       // parent implementation to update the visual representation
       return true; // returns true to update state. Else do not update state.
     }
-  
+
     setSelectedId = (id, evt, selected) => {
       EventManager.getInstance().addAction(this.props.id, 'select', { id: id });
     }
-  
+
     handleSelect = (key, data, index, evt) => {
-  
+
       if (!evt) { this.setSelectedId(data.id, evt); }
-  
+
     }
     */
 

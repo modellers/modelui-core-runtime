@@ -72,7 +72,6 @@ export default class ViewComponent extends LayoutBase {
       if (ignore.indexOf(item.type) > -1) { console.warn('Using item type=' + item.type + ' not supported in layout for ' + container_id); continue; }
       // create a component identifier
       let id = container_id + (item.id || item.type);
-      console.info("ID: " + id);
       // build the component
       if (item.type === 'layout') {
         content.push(<Layouter id={id} key={id} classes={classes} data={data} config={item.config} manager={this.props.manager} />);
