@@ -1,2 +1,677 @@
-import{h as e,_ as t,a,b as n,c as d,d as s,e as i,i as r,g as c,j as o}from"../_rollupPluginBabelHelpers-55d249d8.js";import l from"./StateBase.js";import p from"./StateBaseComponent.js";import{findItemIndexById as u,mergeDeep as h,removeItemIndexByIndex as m}from"../util/ObjUtil.js";import"react";var f={$id:"v1/listbase/..",type:"array",items:{$ref:"#/definitions/identifier"},definitions:{identifier:{type:"object",additionalProperties:!0,properties:{id:{type:"string"}},required:["id"],title:"Identifier with additional properties"}}},g={submit:{alias:[],info:{name:"Submit",description:"Submit entire list"},schema:{}},replace:{alias:[],info:{name:"Replace",description:"Replace data"},schema:{}},push:{alias:[],info:{name:"Push",description:"Adds data at the end to component"},schema:{}},push_front:{alias:[],info:{name:"Push front",description:"Adds data to the front of the component"},schema:{}},delete:{alias:[],info:{name:"Delete data instance",description:"Removes data from the component"},schema:e(e({},f),{},{$id:"v1/listbase/delete"})},pop:{alias:[],info:{name:"Pop back item",description:"Deletes / removes back data item"},schema:{}},pop_front:{alias:[],info:{name:"Pop front item",description:"Deletes / removes front data item"},schema:{}},select:{alias:[],info:{name:"Select item",description:"Selects the data item"},schema:e(e({},f),{},{$id:"v1/listbase/select"})},clear:{alias:[],info:{name:"Clear items",description:"Removes all items from list"},schema:{}}},v={changed:{alias:[],info:{name:"changed",description:"Changed size"},schema:{}},replacing:{alias:[],info:{name:"replacing",description:"Replacing content"},schema:{}},replaced:{alias:[],info:{name:"replaced",description:"Replace content"},schema:{}},submitted:{alias:[],info:{name:"Submitted",description:"Subbited all items in list"},schema:{}},deleted:{alias:[],info:{name:"Deleted",description:"Deleted specified items"},schema:{}},pushing:{alias:[],info:{name:"Pusing",description:"Pushing item in front of list"},schema:{}},pushed:{alias:[],info:{name:"Pushed",description:"Pushed item in front of list"},schema:{}},selected:{alias:[],info:{name:"Selected",description:"Selecting item"},schema:e(e({},f),{},{$id:"v1/listbase/selected"})},deselected:{alias:[],info:{name:"De-Selected",description:"Unselecting item"},schema:{}},clearing:{alias:[],info:{name:"Clearing",description:"Removing all items"},schema:{}},cleared:{alias:[],info:{name:"Cleared",description:"Removed all items"},schema:{}}},I=function(l){t(f,l);var p=a(f);function f(t){var a;d(this,f),a=p.call(this,t),s(i(a),"findItemIndexById",(function(e,t){return u(e,t)})),s(i(a),"updateItem",(function(t,n){var d=a.findItemIndexById(t,a.state.data),s=r(a.state.data);if(d>=0){for(var i=0,o=Object.entries(n);i<o.length;i++){var l=c(o[i],2),p=l[0],u=l[1];s[d][p]=u}a.setState(e(e({},a.state),{},{data:s}))}})),s(i(a),"registerComponent",(function(t,n,d){t=t||{},n=n||{};var s={submit:{schema:{},handler:function(e){a.eventManager.addEvent(a.props.id,"submitted",{count:a.state.data.length,items:a.state.data},{})}},replace:{schema:{},handler:function(t){var n=a.state.data||[];Array.isArray(t)||(t=[t]),a.eventManager.addEvent(a.props.id,"replacing",{count:n.length,old:n,new:t},{});var d=t;a.updateView("replace",[],[],d)&&a.setState(e(e({},a.state),{},{data:d})),a.eventManager.addEvent(a.props.id,"replaced",{count:d.length,items:d},{}),a.eventManager.addEvent(a.props.id,"changed",{count:d.length,items:d},{})}},push:{schema:{},handler:function(t){var n=[],d=[],s=a.state.data||[],i={};Array.isArray(t)||(t=[t]),t.forEach((function(e){var t=a.findItemIndexById(e.id,s);null===t?n.push(e):(s[t]=h(s[t],e),d.push(t)),e.selected&&(i={selectedId:e.id,selectedIndex:t})}));var c=[].concat(r(s),n);try{a.eventManager.addEvent(a.props.id,"pushing",n,{}),a.updateView("push",n,d,c)&&a.setState(e(e(e({},a.state),i),{},{data:c}))}catch(e){a.exceptionCatched("push",e)}a.eventManager.addEvent(a.props.id,"pushed",{count:c.length,items:c,added:n},{}),a.ddEvent=a.eventManager.addEvent(a.props.id,"changed",{count:c.length,items:c,added:n,updated:d},{})}},push_front:{schema:{},handler:function(t){var n=[],d=[],s=a.state.data||[],i={};Array.isArray(t)||(t=[t]),t.forEach((function(e){var t=a.findItemIndexById(e.id,a.state.data);null===t?n.push(e):(s[t]=e,d.push(t)),e.selected&&(i={selectedId:e.id,selectedIndex:t||n.length-1})}));var c=[].concat(n,r(s));a.updateView("push_front",[],d,c)&&a.setState(e(e(e({},a.state),i),{},{data:c})),a.ddEvent=a.eventManager.addEvent(a.props.id,"changed",{count:c.length,items:c},{})}},delete:{schema:{},handler:function(t){Array.isArray(t)||(t=[t]);var n=a.state.data,d=[],s=[];t.forEach((function(e){if(e.id){var t=a.findItemIndexById(e.id,n);null!==t&&(s.push(e.id),n=m(t,n),d.push(t))}}));try{a.updateView("delete",[],d,n)&&a.setState(e(e({},a.state),{},{data:n}))}catch(e){a.exceptionCatched("delete",e)}a.ddEvent=a.eventManager.addEvent(a.props.id,"changed",{count:n.length,items:n,deleted:s},{}),a.ddEvent=a.eventManager.addEvent(a.props.id,"deleted",{count:s.length,items:n,deleted:s},{})}},pop:{schema:{},handler:function(t){if(a.state.data.length>0){var n=a.state.data.slice(),d=n.splice(n.length-1,1);a.updateView("pop",[],d,n)&&(a.setState(e(e({},a.state),{},{data:n})),a.ddEvent=a.eventManager.addEvent(a.props.id,"changed",{count:a.state.data.length,items:a.state.data},{}))}}},pop_front:{schema:{},handler:function(t){if(a.state.data.length>0){var n=a.state.data.slice(),d=n.splice(0,1);a.updateView("pop_front",[],d,n)&&(a.setState(e(e({},a.state),{},{data:n})),a.ddEvent=a.eventManager.addEvent(a.props.id,"changed",{count:a.state.data.length,items:a.state.data},{}))}}},select:{schema:{},handler:function(t){var n=[],d=[];Array.isArray(t)||(t=[t]);for(var s=0;s<a.state.data.length;s++)a.state.data[s].selected=!1;t.forEach((function(e){if(e.id){var t=a.findItemIndexById(e.id,a.state.data);null!==t&&(a.state.data[t].selected=!a.state.data[t].selected,a.state.selectedId=a.state.data[t].id,a.state.selectedIndex=t,n.push(t),d.push(a.state.data[t]))}})),a.setState(e(e({},a.state),{},{data:a.state.data})),a.ddEvent=a.eventManager.addEvent(a.props.id,"selecting",t,null),a.updateView("select",t,n,a.state)&&(a.ddEvent=a.eventManager.addEvent(a.props.id,"selected",d,null))}},clear:{schema:{},handler:function(t){a.ddEvent=a.eventManager.addEvent(a.props.id,"clearing",{count:a.state.data.length,items:a.state.data},{}),a.setState(e(e({},a.state),{},{data:[]})),a.ddEvent=a.eventManager.addEvent(a.props.id,"cleared",{count:a.state.data.length,items:a.state.data},{}),a.ddEvent=a.eventManager.addEvent(a.props.id,"changed",{count:a.state.data.length,items:a.state.data},{}),a.updateView("clear",[],[],[])}}};return a.ddEvent=a.eventManager.register(a.props.id,e(e({},s),t),e(e({},v),n),d),a.ddEvent})),a.props=t;var n=[];if(t.data&&(Array.isArray(t.data)?n=t.data:"object"===o(t.data)?t.data.length&&(n=[t.data]):n=[t.data]),a.state={data:n||[],selectedIndex:0,selectedId:null},!a.props.manager)throw new Error("Manager was not passed through StateList props");return a.eventManager=a.props.manager.getEventManager(),a}return n(f)}(l.StateInstance),E=function(r){t(o,r);var c=a(o);function o(t){var a;return d(this,o),t.config.options||(t.config.options={}),a=c.call(this,t),s(i(a),"updateView",(function(e,t,a,n){return!0})),s(i(a),"exceptionCatched",(function(e,t){})),s(i(a),"findItemIndexById",(function(e,t){if(a.stateManager)return a.stateManager.findItemIndexById(e,t)})),s(i(a),"updateItem",(function(t,n,d){return d?a.updateItemSilent(t,n):a.triggerAction("push",e(e({},n),{},{id:t}))})),s(i(a),"updateItemSilent",(function(e,t){if(a.stateManager)return a.stateManager.updateItem(e,t)})),s(i(a),"getData",(function(){return a.state.data})),s(i(a),"showSelectedRow",(function(e){return!!a.props.config.options.select&&e.selected})),s(i(a),"showSelected",(function(e,t){return!0})),s(i(a),"setSelectedId",(function(e,t,n){a.triggerAction("select",{id:e})})),s(i(a),"getSelectedId",(function(){var e=[];return a.state.data.forEach((function(t){t.selected&&e.push(t.id)})),e})),s(i(a),"getItemTreeState",(function(){var e=[],t=[];return a.state.data.forEach((function(a){a.selected&&e.push(a.id),a.expanded&&t.push(a.id)})),{selected:e,expanded:t,focused:a.state.selectedId}})),s(i(a),"handleSelect",(function(e,t,n,d){d||a.setSelectedId(t.id,d)})),a.props=t,a}return n(o,[{key:"render",value:function(){return null}}]),o}(p.StateBaseComponent),S={events:v,triggers:g,StateList:I,ListBase:E};export{E as ListBase,I as StateList,S as default,v as events,g as triggers};
+import { h as _objectSpread2, _ as _inherits, a as _createSuper, b as _createClass, c as _classCallCheck, d as _defineProperty, e as _assertThisInitialized, i as _toConsumableArray, g as _slicedToArray, j as _typeof } from '../_rollupPluginBabelHelpers-55d249d8.js';
+import StateBase from './StateBase.js';
+import StateBaseComponent from './StateBaseComponent.js';
+import { findItemIndexById, mergeDeep, removeItemIndexByIndex } from '../util/ObjUtil.js';
+import 'react';
+
+// event handler
+// import Event from './Event'
+
+var schema_only_id = {
+  // "$schema": "http://json-schema.org/draft-06/schema#",
+  $id: 'v1/listbase/..',
+  type: 'array',
+  items: {
+    $ref: '#/definitions/identifier'
+  },
+  definitions: {
+    identifier: {
+      type: 'object',
+      additionalProperties: true,
+      properties: {
+        id: {
+          type: 'string'
+        }
+      },
+      required: ['id'],
+      title: 'Identifier with additional properties'
+    }
+  }
+};
+var triggers = {
+  submit: {
+    alias: [],
+    info: {
+      name: 'Submit',
+      description: 'Submit entire list'
+    },
+    schema: {}
+  },
+  replace: {
+    alias: [],
+    info: {
+      name: 'Replace',
+      description: 'Replace data'
+    },
+    schema: {}
+  },
+  push: {
+    alias: [],
+    info: {
+      name: 'Push',
+      description: 'Adds data at the end to component'
+    },
+    schema: {}
+  },
+  push_front: {
+    alias: [],
+    info: {
+      name: 'Push front',
+      description: 'Adds data to the front of the component'
+    },
+    schema: {}
+  },
+  "delete": {
+    alias: [],
+    info: {
+      name: 'Delete data instance',
+      description: 'Removes data from the component'
+    },
+    schema: _objectSpread2(_objectSpread2({}, schema_only_id), {}, {
+      $id: 'v1/listbase/delete'
+    })
+  },
+  pop: {
+    alias: [],
+    info: {
+      name: 'Pop back item',
+      description: 'Deletes / removes back data item'
+    },
+    schema: {}
+  },
+  pop_front: {
+    alias: [],
+    info: {
+      name: 'Pop front item',
+      description: 'Deletes / removes front data item'
+    },
+    schema: {}
+  },
+  select: {
+    alias: [],
+    info: {
+      name: 'Select item',
+      description: 'Selects the data item'
+    },
+    schema: _objectSpread2(_objectSpread2({}, schema_only_id), {}, {
+      $id: 'v1/listbase/select'
+    })
+  },
+  clear: {
+    alias: [],
+    info: {
+      name: 'Clear items',
+      description: 'Removes all items from list'
+    },
+    schema: {}
+  }
+};
+var events = {
+  changed: {
+    alias: [],
+    info: {
+      name: 'changed',
+      description: 'Changed size'
+    },
+    schema: {}
+  },
+  replacing: {
+    alias: [],
+    info: {
+      name: 'replacing',
+      description: 'Replacing content'
+    },
+    schema: {}
+  },
+  replaced: {
+    alias: [],
+    info: {
+      name: 'replaced',
+      description: 'Replace content'
+    },
+    schema: {}
+  },
+  submitted: {
+    alias: [],
+    info: {
+      name: 'Submitted',
+      description: 'Subbited all items in list'
+    },
+    schema: {}
+  },
+  deleted: {
+    alias: [],
+    info: {
+      name: 'Deleted',
+      description: 'Deleted specified items'
+    },
+    schema: {}
+  },
+  pushing: {
+    alias: [],
+    info: {
+      name: 'Pusing',
+      description: 'Pushing item in front of list'
+    },
+    schema: {}
+  },
+  pushed: {
+    alias: [],
+    info: {
+      name: 'Pushed',
+      description: 'Pushed item in front of list'
+    },
+    schema: {}
+  },
+  selected: {
+    alias: [],
+    info: {
+      name: 'Selected',
+      description: 'Selecting item'
+    },
+    schema: _objectSpread2(_objectSpread2({}, schema_only_id), {}, {
+      $id: 'v1/listbase/selected'
+    })
+  },
+  deselected: {
+    alias: [],
+    info: {
+      name: 'De-Selected',
+      description: 'Unselecting item'
+    },
+    schema: {}
+  },
+  clearing: {
+    alias: [],
+    info: {
+      name: 'Clearing',
+      description: 'Removing all items'
+    },
+    schema: {}
+  },
+  cleared: {
+    alias: [],
+    info: {
+      name: 'Cleared',
+      description: 'Removed all items'
+    },
+    schema: {}
+  }
+};
+var StateList = /*#__PURE__*/function (_StateBase$StateInsta) {
+  _inherits(StateList, _StateBase$StateInsta);
+  var _super = _createSuper(StateList);
+  function StateList(_props) {
+    var _this;
+    _classCallCheck(this, StateList);
+    _this = _super.call(this, _props);
+    _defineProperty(_assertThisInitialized(_this), "findItemIndexById", function (id, data) {
+      return findItemIndexById(id, data);
+    });
+    _defineProperty(_assertThisInitialized(_this), "updateItem", function (id, props) {
+      var idx = _this.findItemIndexById(id, _this.state.data);
+      var updated = _toConsumableArray(_this.state.data); // copy
+      // TODO: validate props against schema
+      if (idx >= 0) {
+        for (var _i = 0, _Object$entries = Object.entries(props); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+          updated[idx][key] = value;
+        }
+        _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+          data: updated
+        }));
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this), "registerComponent", function (actionHandlers, eventHandlers, component_info) {
+      actionHandlers = actionHandlers || {};
+      eventHandlers = eventHandlers || {};
+      // add our known handlers
+      var dataActionHandlers = {
+        submit: {
+          schema: {},
+          handler: function handler(objs) {
+            // submit
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'submitted', {
+              count: _this.state.data.length,
+              items: _this.state.data
+            }, {});
+          }
+        },
+        replace: {
+          schema: {},
+          handler: function handler(objs) {
+            // append
+            var data_state = _this.state.data || [];
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'replacing', {
+              count: data_state.length,
+              old: data_state,
+              "new": objs
+            }, {});
+            var data = objs;
+            if (_this.updateView('replace', [], [], data)) {
+              _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                data: data
+              }));
+            }
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'replaced', {
+              count: data.length,
+              items: data
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: data.length,
+              items: data
+            }, {});
+          }
+        },
+        push: {
+          schema: {},
+          handler: function handler(objs) {
+            // append
+            var data_added = [];
+            var data_updated = []; // contains ids
+            var data_state = _this.state.data || [];
+            var selected = {};
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            objs.forEach(function (obj) {
+              var idx = _this.findItemIndexById(obj.id, data_state);
+              if (idx === null) {
+                data_added.push(obj);
+              } else {
+                // update the index
+                data_state[idx] = mergeDeep(data_state[idx], obj); // TODO: fetch from utils
+                data_updated.push(idx);
+              }
+              if (obj.selected) {
+                // TODO: test that we can push items that are selected
+                selected = {
+                  selectedId: obj.id,
+                  selectedIndex: idx
+                };
+              }
+            });
+            var data = [].concat(_toConsumableArray(data_state), data_added);
+            // notify parent class of push event
+            try {
+              // Event.EventManager.getInstance().addEvent(
+              _this.eventManager.addEvent(_this.props.id, 'pushing', data_added, {});
+              if (_this.updateView('push', data_added, data_updated, data)) {
+                _this.setState(_objectSpread2(_objectSpread2(_objectSpread2({}, _this.state), selected), {}, {
+                  data: data
+                }));
+              }
+            } catch (e) {
+              _this.exceptionCatched('push', e);
+            }
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'pushed', {
+              count: data.length,
+              items: data,
+              added: data_added
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: data.length,
+              items: data,
+              added: data_added,
+              updated: data_updated
+            }, {});
+            // FIXME: this.showSelected(selected.selectedId, selected.selectedIndex || -1);
+          }
+        },
+
+        push_front: {
+          schema: {},
+          handler: function handler(objs) {
+            var data_added = [];
+            var data_updated = [];
+            var data_state = _this.state.data || [];
+            var selected = {};
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            objs.forEach(function (obj) {
+              var idx = _this.findItemIndexById(obj.id, _this.state.data);
+              if (idx === null) {
+                data_added.push(obj);
+              } else {
+                // update the index
+                data_state[idx] = obj;
+                data_updated.push(idx);
+              }
+              if (obj.selected) {
+                // TODO: test that we can push items that are selected
+                selected = {
+                  selectedId: obj.id,
+                  selectedIndex: idx || data_added.length - 1
+                };
+              }
+            });
+            var data = [].concat(data_added, _toConsumableArray(data_state));
+            if (_this.updateView('push_front', [], data_updated, data)) {
+              _this.setState(_objectSpread2(_objectSpread2(_objectSpread2({}, _this.state), selected), {}, {
+                data: data
+              }));
+            }
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: data.length,
+              items: data
+            }, {});
+            // FIXME: this.showSelected(selected.selectedId, selected.selectedIndex || -1);
+          }
+        },
+
+        "delete": {
+          schema: {},
+          handler: function handler(objs) {
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            var data = _this.state.data;
+            var data_updated = [];
+            var deleting = [];
+            objs.forEach(function (obj) {
+              if (obj.id) {
+                // requires array
+                var idx = _this.findItemIndexById(obj.id, data);
+                if (idx !== null) {
+                  deleting.push(obj.id);
+                  data = removeItemIndexByIndex(idx, data);
+                  data_updated.push(idx);
+                }
+              }
+            });
+            try {
+              if (_this.updateView('delete', [], data_updated, data)) {
+                _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                  data: data
+                }));
+              }
+            } catch (e) {
+              _this.exceptionCatched('delete', e);
+            }
+
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: data.length,
+              items: data,
+              deleted: deleting
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'deleted', {
+              count: deleting.length,
+              items: data,
+              deleted: deleting
+            }, {});
+          }
+        },
+        pop: {
+          schema: {},
+          handler: function handler(obj) {
+            if (_this.state.data.length > 0) {
+              var data = _this.state.data.slice();
+              var data_removed = data.splice(data.length - 1, 1); // remove item
+              if (_this.updateView('pop', [], data_removed, data)) {
+                _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                  data: data
+                }));
+                // Event.EventManager.getInstance().addEvent(
+                _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'changed', {
+                  count: _this.state.data.length,
+                  items: _this.state.data
+                }, {});
+              }
+            }
+          }
+        },
+        pop_front: {
+          schema: {},
+          handler: function handler(obj) {
+            if (_this.state.data.length > 0) {
+              var data = _this.state.data.slice();
+              var data_removed = data.splice(0, 1);
+              if (_this.updateView('pop_front', [], data_removed, data)) {
+                _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                  data: data
+                }));
+                // Event.EventManager.getInstance().addEvent(
+                _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'changed', {
+                  count: _this.state.data.length,
+                  items: _this.state.data
+                }, {});
+              }
+            }
+          }
+        },
+        select: {
+          schema: {},
+          handler: function handler(objs) {
+            var data_updated = [];
+            var selected = [];
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            // allow only one selection
+            for (var i = 0; i < _this.state.data.length; i++) {
+              _this.state.data[i].selected = false;
+            }
+            // find selected
+            objs.forEach(function (obj) {
+              if (obj.id) {
+                // requires array
+                var idx = _this.findItemIndexById(obj.id, _this.state.data);
+                if (idx !== null) {
+                  _this.state.data[idx].selected = !_this.state.data[idx].selected;
+                  _this.state.selectedId = _this.state.data[idx].id;
+                  _this.state.selectedIndex = idx;
+                  data_updated.push(idx);
+                  selected.push(_this.state.data[idx]);
+                }
+              }
+            });
+            // for now we just replace the state
+            _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+              data: _this.state.data
+            }));
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'selecting', objs, null);
+            if (_this.updateView('select', objs, data_updated, _this.state)) {
+              // Event.EventManager.getInstance().addEvent(
+              _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'selected', selected, null);
+            }
+          }
+        },
+        clear: {
+          schema: {},
+          handler: function handler(obj) {
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'clearing', {
+              count: _this.state.data.length,
+              items: _this.state.data
+            }, {});
+            _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+              data: []
+            }));
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'cleared', {
+              count: _this.state.data.length,
+              items: _this.state.data
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.ddEvent = _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: _this.state.data.length,
+              items: _this.state.data
+            }, {});
+            _this.updateView('clear', [], [], []);
+          }
+        }
+      };
+
+      // register componenet overiding or adding new event handlers
+      // this.ddEvent = Event.EventManager.getInstance().register(
+      _this.ddEvent = _this.eventManager.register(_this.props.id, _objectSpread2(_objectSpread2({}, dataActionHandlers), actionHandlers), _objectSpread2(_objectSpread2({}, events), eventHandlers), component_info);
+      return _this.ddEvent;
+    });
+    _this.props = _props;
+    // ensure array
+    var _data = [];
+    if (_props.data) {
+      if (Array.isArray(_props.data)) {
+        _data = _props.data;
+      } else {
+        // check if this is an empty object
+        if (_typeof(_props.data) === 'object') {
+          // objects should not be empty
+          if (_props.data.length) {
+            _data = [_props.data];
+          }
+        } else {
+          _data = [_props.data];
+        }
+      }
+    }
+    // apply default values
+    _this.state = {
+      data: _data || [],
+      selectedIndex: 0,
+      selectedId: null
+    };
+    if (!_this.props.manager) {
+      throw new Error('Manager was not passed through StateList props');
+    }
+    _this.eventManager = _this.props.manager.getEventManager();
+    return _this;
+  }
+  return _createClass(StateList);
+}(StateBase.StateInstance);
+var ListBase = /*#__PURE__*/function (_StateBaseComponent$S) {
+  _inherits(ListBase, _StateBaseComponent$S);
+  var _super2 = _createSuper(ListBase);
+  /**
+   * Used to manage internal state of avatars
+   */
+  function ListBase(_props2) {
+    var _this2;
+    _classCallCheck(this, ListBase);
+    if (!_props2.config.options) {
+      _props2.config.options = {};
+    }
+    _this2 = _super2.call(this, _props2);
+    _defineProperty(_assertThisInitialized(_this2), "updateView", function (action, arr, updated, data) {
+      // extend by parent
+      return true;
+    });
+    _defineProperty(_assertThisInitialized(_this2), "exceptionCatched", function (action_name, event_object) {
+      // console.info('ListBase: ' + action_name + ' --> ', event_object)
+    });
+    _defineProperty(_assertThisInitialized(_this2), "findItemIndexById", function (id, data) {
+      if (_this2.stateManager) {
+        return _this2.stateManager.findItemIndexById(id, data);
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this2), "updateItem", function (id, props, silent) {
+      if (silent) {
+        return _this2.updateItemSilent(id, props);
+      } else {
+        return _this2.triggerAction('push', _objectSpread2(_objectSpread2({}, props), {}, {
+          id: id
+        }));
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this2), "updateItemSilent", function (id, props) {
+      if (_this2.stateManager) {
+        return _this2.stateManager.updateItem(id, props);
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this2), "getData", function () {
+      return _this2.state.data;
+    });
+    _defineProperty(_assertThisInitialized(_this2), "showSelectedRow", function (row) {
+      if (_this2.props.config.options.select) {
+        return row.selected;
+      }
+      return false;
+    });
+    _defineProperty(_assertThisInitialized(_this2), "showSelected", function (id, idx) {
+      // parent implementation to update the visual representation
+      return true; // returns true to update state. Else do not update state.
+    });
+    _defineProperty(_assertThisInitialized(_this2), "setSelectedId", function (id, evt, selected) {
+      // Event.EventManager.getInstance().addAction(this.props.id, 'select', { id: id });
+      _this2.triggerAction('select', {
+        id: id
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this2), "getSelectedId", function () {
+      var selected = [];
+      _this2.state.data.forEach(function (itm) {
+        if (itm.selected) {
+          selected.push(itm.id);
+        }
+      });
+      return selected;
+    });
+    _defineProperty(_assertThisInitialized(_this2), "getItemTreeState", function () {
+      var selected = [];
+      var expanded = [];
+      _this2.state.data.forEach(function (itm) {
+        if (itm.selected) {
+          selected.push(itm.id);
+        }
+        if (itm.expanded) {
+          expanded.push(itm.id);
+        }
+      });
+      return {
+        selected: selected,
+        expanded: expanded,
+        focused: _this2.state.selectedId
+      };
+    });
+    _defineProperty(_assertThisInitialized(_this2), "handleSelect", function (key, data, index, evt) {
+      if (!evt) {
+        _this2.setSelectedId(data.id, evt);
+      }
+    });
+    _this2.props = _props2;
+    return _this2;
+  }
+  _createClass(ListBase, [{
+    key: "render",
+    value: function render() {
+      return null;
+    }
+  }]);
+  return ListBase;
+}(StateBaseComponent.StateBaseComponent);
+/*
+module.exports.triggers = triggers
+module.exports.events = events
+module.exports.StateList = StateList
+module.exports.ListBase = ListBase
+*/
+var ListBase$1 = {
+  events: events,
+  triggers: triggers,
+  StateList: StateList,
+  ListBase: ListBase
+};
+
+export { ListBase, StateList, ListBase$1 as default, events, triggers };
 //# sourceMappingURL=ListBase.js.map

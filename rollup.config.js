@@ -21,7 +21,36 @@ export default [
         format: 'cjs',
         sourcemap: true,
         exports: 'auto'
-      },
+      }
+    ],
+    plugins: [
+      babel({
+        babelHelpers: 'bundled',
+        extensions,
+        exclude: 'node_modules/**',
+        presets: ['@babel/preset-env', '@babel/preset-react']
+      }),
+      resolve(),
+      commonjs(),
+      // terser(), // create one liner
+      multiInput({ relative: 'src/' }),
+      css(),
+      json()
+    ],
+    external: Object.keys(pkg.peerDependencies),
+    compilerOptions: {
+      lib: ['ESNext'], // Why not use NodeNext if it compiles down anyways
+      target: 'ES2021',
+
+      // Runtime/Module
+      module: 'Node16', // <- ESM Module Type
+      moduleResolution: 'Node16', // <- ESM Resolution
+      esModuleInterop: false // I added this to show what not to do
+    }
+  },
+  {
+    input: 'src/**/*.js',
+    output: [
       {
         dir: 'dist/esm',
         format: 'esm',
@@ -38,12 +67,21 @@ export default [
       }),
       resolve(),
       commonjs(),
-      terser(),
+      // terser(), // create one liner
       multiInput({ relative: 'src/' }),
       css(),
       json()
     ],
-    external: Object.keys(pkg.peerDependencies)
+    external: Object.keys(pkg.peerDependencies),
+    compilerOptions: {
+      lib: ['ESNext'], // Why not use NodeNext if it compiles down anyways
+      target: 'ES2021',
+
+      // Runtime/Module
+      module: 'Node16', // <- ESM Module Type
+      moduleResolution: 'Node16', // <- ESM Resolution
+      esModuleInterop: false // I added this to show what not to do
+    }
   },
   {
     input: 'src/**/*.js',

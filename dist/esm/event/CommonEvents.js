@@ -1,2 +1,61 @@
-import n from"./Event.js";import"../_rollupPluginBabelHelpers-55d249d8.js";var e={registerEvents:function(n){},registerEventApp:function(){n.EventManager.getInstance().register("app",{warning:{schema:{},handler:function(n){console.info("--------------- WARNING ------------------"),console.warn(n)}},error:{schema:{},handler:function(n){console.info("---------------- ERROR -------------------"),console.error(n)}}},{ready:{alias:[],info:{name:"Ready",description:"Ready"},schema:{}}},{name:"Application",type:"app",author:"Kjartan Jónsson",description:"Application",version:.1,options:{}})},registerEventDebugging:function(){n.EventManager.getInstance().register("console",{print:{schema:{},handler:function(n){console.info("------------- DEBUG-STORY ----------------"),console.info(n)}}})}};export{e as default};
+import Event from './Event.js';
+import '../_rollupPluginBabelHelpers-55d249d8.js';
+
+var registerEventDebugging = function registerEventDebugging() {
+  // add specific solutions
+  Event.EventManager.getInstance().register('console', {
+    print: {
+      schema: {},
+      handler: function handler(obj) {
+        console.info('------------- DEBUG-STORY ----------------');
+        console.info(obj);
+      }
+    }
+  });
+};
+var registerEventApp = function registerEventApp() {
+  // add specific solutions
+  Event.EventManager.getInstance().register('app', {
+    warning: {
+      schema: {},
+      handler: function handler(obj) {
+        console.info('--------------- WARNING ------------------');
+        console.warn(obj);
+      }
+    },
+    error: {
+      schema: {},
+      handler: function handler(obj) {
+        console.info('---------------- ERROR -------------------');
+        console.error(obj);
+      }
+    }
+  }, {
+    ready: {
+      alias: [],
+      info: {
+        name: 'Ready',
+        description: 'Ready'
+      },
+      schema: {}
+    }
+  }, {
+    name: 'Application',
+    type: 'app',
+    author: 'Kjartan Jónsson',
+    description: 'Application',
+    version: 0.1,
+    options: {}
+  });
+};
+var registerEvents = function registerEvents(event_types) {
+  // TODO: event
+};
+var CommonEvents = {
+  registerEvents: registerEvents,
+  registerEventApp: registerEventApp,
+  registerEventDebugging: registerEventDebugging
+};
+
+export { CommonEvents as default };
 //# sourceMappingURL=CommonEvents.js.map

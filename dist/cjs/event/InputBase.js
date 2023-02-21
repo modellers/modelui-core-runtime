@@ -1,2 +1,306 @@
-"use strict";var e=require("../_rollupPluginBabelHelpers-aae655da.js"),a=require("./StateBase.js"),t=require("./StateBaseComponent.js");require("react");var n={changed:{alias:[],info:{name:"Changed",description:"Input value changed"},schema:{}},enabled:{alias:[],info:{name:"Enabled",description:"Enabled input"},schema:{}},disabled:{alias:[],info:{name:"Disabled",description:"Disabled input"},schema:{}},submitted:{alias:[],info:{name:"Submitted",description:"Submitted value"},schema:{}},cleared:{alias:[],info:{name:"Cleared",description:"Cleared value"},schema:{}},populated:{alias:[],info:{name:"Populated",description:"Populated value"},schema:{}},replaced:{alias:[],info:{name:"Replaced",description:"Replaced value"},schema:{}},invalidated:{alias:[],info:{name:"In-validated",description:"Unselecting item"},schema:{}},validated:{alias:[],info:{name:"De-Selected",description:"Unselecting item"},schema:{}}},i=function(a){e._inherits(i,a);var t=e._createSuper(i);function i(a){var s;if(e._classCallCheck(this,i),s=t.call(this,a),e._defineProperty(e._assertThisInitialized(s),"registerComponent",(function(a,t,i){var r=e._assertThisInitialized(s);a=a||{},t=t||{};var d={submit:{schema:{},handler:function(e){s.eventManager.addEvent(s.props.id,"submitting",e,null),s.getActionState("submit",(function(e){var a=r.alterState(e);r.eventManager.addEvent(r.props.id,"submitted",a.data,null)}))}},enable:{schema:{},handler:function(e){var a={disabled:!1};r.alterState(a),s.updateView("enable",e,e,r.state.data)&&r.eventManager.addEvent(r.props.id,"enabled",a,null)}},disable:{schema:{},handler:function(e){var a={disabled:!0};r.alterState(a),s.updateView("disable",e,e,r.state.data)&&r.eventManager.addEvent(r.props.id,"disabled",a,null)}},clear:{schema:{},handler:function(e){var a={data:{value:""}},t=r.alterState(a);r.eventManager.addEvent(r.props.id,"clearing",a,{}),r.updateView("clear",e,e,t)&&r.eventManager.addEvent(r.props.id,"cleared",t.data,null),r.eventManager.addEvent(r.props.id,"changed",t.data,null)}},populate:{schema:{},handler:function(e){var a={data:{value:e.value,id:e.id}};r.alterState(a),r.updateView("populate",e,e,r.state.data)&&r.eventManager.addEvent(r.props.id,"populated",e,null),r.eventManager.addEvent(r.props.id,"changed",e,null)}},replace:{schema:{},handler:function(a){var t=e._objectSpread2(e._objectSpread2({},r.state),{},{data:e._objectSpread2(e._objectSpread2({},a),{},{id:a.id,value:a.value||s.state.data.value,schema:a.schema||s.state.data.schema})});r.setState(t),r.updateView("replace",a,a,r.state.data)&&r.eventManager.addEvent(r.props.id,"replaced",a,null),r.eventManager.addEvent(r.props.id,"changed",a,null)}}};return r.ddEvent=r.eventManager.register(r.props.id,e._objectSpread2(e._objectSpread2({},d),a),e._objectSpread2(e._objectSpread2({},n),t),i),r.ddEvent})),s.props=a,s.state={data:{id:a.data.id||null,value:a.data.value,schema:a.data.schema||a.schema},enabled:(a.config||{}).enabled||!0,schema:a.schema},!s.props.manager)throw new Error("Manager was not passed through StateInput props");return s.eventManager=s.props.manager.getEventManager(),s}return e._createClass(i)}(a.default.StateInstance),s=function(a){e._inherits(n,a);var t=e._createSuper(n);function n(a){var i;return e._classCallCheck(this,n),a.config.options||(a.config.options={}),i=t.call(this,a),e._defineProperty(e._assertThisInitialized(i),"updateView",(function(e,a,t,n){return!0})),i.props=a,i}return e._createClass(n,[{key:"render",value:function(){return null}}]),n}(t.StateBaseComponent),r={events:n,triggers:{submit:{info:{name:"Submit",description:"Submits the form data"},schema:{},alias:[]},enable:{info:{name:"Enables",description:"Enables the form so that we can change form inputs"},schema:{},alias:[]},disable:{info:{name:"Disable",description:"Disables the form so that we can not change input value"},schema:{},alias:[]},clear:{info:{name:"Clear",description:"Removes all input values clearing the form"},schema:{},alias:[]},populate:{info:{name:"Populate",description:"Fills the form with specified data"},schema:{},alias:[]},replace:{info:{name:"Replace",description:"Replaces the form with specified data"},schema:{},alias:[]}},StateInput:i,InputBase:s};module.exports=r;
+'use strict';
+
+var _rollupPluginBabelHelpers = require('../_rollupPluginBabelHelpers-aae655da.js');
+var event_StateBase = require('./StateBase.js');
+var event_StateBaseComponent = require('./StateBaseComponent.js');
+require('react');
+
+// event handler
+// import Event from './Event'
+
+var events = {
+  changed: {
+    alias: [],
+    info: {
+      name: 'Changed',
+      description: 'Input value changed'
+    },
+    schema: {}
+  },
+  enabled: {
+    alias: [],
+    info: {
+      name: 'Enabled',
+      description: 'Enabled input'
+    },
+    schema: {}
+  },
+  disabled: {
+    alias: [],
+    info: {
+      name: 'Disabled',
+      description: 'Disabled input'
+    },
+    schema: {}
+  },
+  submitted: {
+    alias: [],
+    info: {
+      name: 'Submitted',
+      description: 'Submitted value'
+    },
+    schema: {}
+  },
+  cleared: {
+    alias: [],
+    info: {
+      name: 'Cleared',
+      description: 'Cleared value'
+    },
+    schema: {}
+  },
+  populated: {
+    alias: [],
+    info: {
+      name: 'Populated',
+      description: 'Populated value'
+    },
+    schema: {}
+  },
+  replaced: {
+    alias: [],
+    info: {
+      name: 'Replaced',
+      description: 'Replaced value'
+    },
+    schema: {}
+  },
+  invalidated: {
+    alias: [],
+    info: {
+      name: 'In-validated',
+      description: 'Unselecting item'
+    },
+    schema: {}
+  },
+  validated: {
+    alias: [],
+    info: {
+      name: 'De-Selected',
+      description: 'Unselecting item'
+    },
+    schema: {}
+  }
+};
+var triggers = {
+  submit: {
+    info: {
+      name: 'Submit',
+      description: 'Submits the form data'
+    },
+    schema: {},
+    alias: []
+  },
+  enable: {
+    info: {
+      name: 'Enables',
+      description: 'Enables the form so that we can change form inputs'
+    },
+    schema: {},
+    alias: []
+  },
+  disable: {
+    info: {
+      name: 'Disable',
+      description: 'Disables the form so that we can not change input value'
+    },
+    schema: {},
+    alias: []
+  },
+  // change: { info: { name: 'Change', description: 'Changes' }, schema: {}, alias: [] },
+  clear: {
+    info: {
+      name: 'Clear',
+      description: 'Removes all input values clearing the form'
+    },
+    schema: {},
+    alias: []
+  },
+  populate: {
+    info: {
+      name: 'Populate',
+      description: 'Fills the form with specified data'
+    },
+    schema: {},
+    alias: []
+  },
+  replace: {
+    info: {
+      name: 'Replace',
+      description: 'Replaces the form with specified data'
+    },
+    schema: {},
+    alias: []
+  }
+};
+var StateInput = /*#__PURE__*/function (_StateBase$StateInsta) {
+  _rollupPluginBabelHelpers._inherits(StateInput, _StateBase$StateInsta);
+  var _super = _rollupPluginBabelHelpers._createSuper(StateInput);
+  function StateInput(props) {
+    var _this;
+    _rollupPluginBabelHelpers._classCallCheck(this, StateInput);
+    _this = _super.call(this, props);
+    _rollupPluginBabelHelpers._defineProperty(_rollupPluginBabelHelpers._assertThisInitialized(_this), "registerComponent", function (actionHandlers, eventHandlers, component_info) {
+      var self = _rollupPluginBabelHelpers._assertThisInitialized(_this);
+      actionHandlers = actionHandlers || {};
+      eventHandlers = eventHandlers || {};
+      // add our known handlers
+      // register componenet overiding or adding new event handlers
+      var dataActionHandlers = {
+        submit: {
+          schema: {},
+          handler: function handler(obj) {
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'submitting', obj, null);
+            _this.getActionState('submit', function (change) {
+              var update = self.alterState(change);
+              // Event.EventManager.getInstance().addEvent(
+              self.eventManager.addEvent(self.props.id, 'submitted', update.data, null);
+            });
+          }
+        },
+        enable: {
+          schema: {},
+          handler: function handler(obj) {
+            var change = {
+              disabled: false
+            };
+            self.alterState(change);
+            if (_this.updateView('enable', obj, obj, self.state.data)) {
+              // Event.EventManager.getInstance().addEvent(
+              self.eventManager.addEvent(self.props.id, 'enabled', change, null);
+            }
+          }
+        },
+        disable: {
+          schema: {},
+          handler: function handler(obj) {
+            var change = {
+              disabled: true
+            };
+            self.alterState(change);
+            if (_this.updateView('disable', obj, obj, self.state.data)) {
+              // Event.EventManager.getInstance().addEvent(
+              self.eventManager.addEvent(self.props.id, 'disabled', change, null);
+            }
+          }
+        },
+        clear: {
+          schema: {},
+          handler: function handler(obj) {
+            var change = {
+              data: {
+                value: ''
+              }
+            }; // getSchemaDefaults(this.state.data.schema || this.state.schema);
+            var update = self.alterState(change);
+            // Event.EventManager.getInstance().addEvent(
+            self.eventManager.addEvent(self.props.id, 'clearing', change, {});
+            if (self.updateView('clear', obj, obj, update)) {
+              // Event.EventManager.getInstance().addEvent(
+              self.eventManager.addEvent(self.props.id, 'cleared', update.data, null);
+            }
+            // Event.EventManager.getInstance().addEvent(
+            self.eventManager.addEvent(self.props.id, 'changed', update.data, null);
+          }
+        },
+        populate: {
+          schema: {},
+          handler: function handler(obj) {
+            var change = {
+              data: {
+                value: obj.value,
+                id: obj.id
+              }
+            };
+            self.alterState(change);
+            if (self.updateView('populate', obj, obj, self.state.data)) {
+              // Event.EventManager.getInstance().addEvent(
+              self.eventManager.addEvent(self.props.id, 'populated', obj, null);
+            }
+            // Event.EventManager.getInstance().addEvent(
+            self.eventManager.addEvent(self.props.id, 'changed', obj, null);
+          }
+        },
+        replace: {
+          schema: {},
+          handler: function handler(obj) {
+            var replaced = _rollupPluginBabelHelpers._objectSpread2(_rollupPluginBabelHelpers._objectSpread2({}, self.state), {}, {
+              data: _rollupPluginBabelHelpers._objectSpread2(_rollupPluginBabelHelpers._objectSpread2({}, obj), {}, {
+                id: obj.id,
+                value: obj.value || _this.state.data.value,
+                schema: obj.schema || _this.state.data.schema
+              })
+            });
+            self.setState(replaced);
+            if (self.updateView('replace', obj, obj, self.state.data)) {
+              // Event.EventManager.getInstance().addEvent(
+              self.eventManager.addEvent(self.props.id, 'replaced', obj, null);
+            }
+            // Event.EventManager.getInstance().addEvent(
+            self.eventManager.addEvent(self.props.id, 'changed', obj, null);
+          }
+        }
+      };
+
+      // register componenet overiding or adding new event handlers
+      // this.ddEvent = Event.EventManager.getInstance().register(
+      self.ddEvent = self.eventManager.register(self.props.id, _rollupPluginBabelHelpers._objectSpread2(_rollupPluginBabelHelpers._objectSpread2({}, dataActionHandlers), actionHandlers), _rollupPluginBabelHelpers._objectSpread2(_rollupPluginBabelHelpers._objectSpread2({}, events), eventHandlers), component_info);
+      return self.ddEvent;
+    });
+    _this.props = props;
+    // apply initial values
+    _this.state = {
+      data: {
+        id: props.data.id || null,
+        value: props.data.value,
+        schema: props.data.schema || props.schema
+      },
+      enabled: (props.config || {}).enabled || true,
+      schema: props.schema
+    };
+    if (!_this.props.manager) {
+      throw new Error('Manager was not passed through StateInput props');
+    }
+    _this.eventManager = _this.props.manager.getEventManager();
+    return _this;
+  }
+  return _rollupPluginBabelHelpers._createClass(StateInput);
+}(event_StateBase["default"].StateInstance);
+var InputBase = /*#__PURE__*/function (_StateBaseComponent$S) {
+  _rollupPluginBabelHelpers._inherits(InputBase, _StateBaseComponent$S);
+  var _super2 = _rollupPluginBabelHelpers._createSuper(InputBase);
+  /**
+   * Used to manage internal state of avatars
+   */
+  function InputBase(props) {
+    var _this2;
+    _rollupPluginBabelHelpers._classCallCheck(this, InputBase);
+    if (!props.config.options) {
+      props.config.options = {};
+    }
+    _this2 = _super2.call(this, props);
+    _rollupPluginBabelHelpers._defineProperty(_rollupPluginBabelHelpers._assertThisInitialized(_this2), "updateView", function (action, arr, updated, data) {
+      // extend by parent
+      return true;
+    });
+    _this2.props = props;
+    return _this2;
+  }
+  _rollupPluginBabelHelpers._createClass(InputBase, [{
+    key: "render",
+    value: function render() {
+      return null;
+    }
+  }]);
+  return InputBase;
+}(event_StateBaseComponent.StateBaseComponent);
+var InputBase$1 = {
+  events: events,
+  triggers: triggers,
+  StateInput: StateInput,
+  InputBase: InputBase
+};
+
+module.exports = InputBase$1;
 //# sourceMappingURL=InputBase.js.map

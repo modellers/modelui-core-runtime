@@ -1,2 +1,346 @@
-"use strict";var t=require("../_rollupPluginBabelHelpers-aae655da.js"),e=function(){function e(){t._classCallCheck(this,e),t._defineProperty(this,"_events",{}),t._defineProperty(this,"_watching",{}),t._defineProperty(this,"_actions",{}),t._defineProperty(this,"_components",{}),t._defineProperty(this,"_component_instance_type",{})}return t._createClass(e,[{key:"getType",value:function(e){return(("object"===t._typeof(e)?null===e?"null":"function"!=typeof e.constructor?"object":e.constructor.name:"boolean"==typeof e?"boolean":"number"==typeof e?"number":"string"==typeof e?"string":"function"==typeof e&&"function")+"").toLowerCase()}},{key:"clearAll",value:function(){this._events={},this._watching={},this._actions={},this._component_instance_type={}}},{key:"warnRegistration",value:function(t,e,n,i){var o="Update registration for "+t+" "+e+"."+n+" : "+i;console.warn(o)}},{key:"warnInfoRegistration",value:function(t,e){console.warn("Update registration for "+t+": "+e)}},{key:"valid",value:function(t,e,n,i,o,r,a){t.hasOwnProperty(e)||(t[e]=i,this.warnRegistration(a,o,r,"Attribute "+e+" missing. Using default value.")),this.getType(t[e])!==n&&this.warnRegistration(a,o,r,"Attribute ".concat(e," should be of type ").concat(n," but is ").concat(this.getType(t[e])," using default values."))}},{key:"validInputsForUI",value:function(t,e,n,i){this.valid(t,"schema","object",{type:"object",title:n+"-"+i,description:"Auto generated"},n,i,e)}},{key:"capitalize",value:function(t){return t.charAt(0).toUpperCase()+t.slice(1)}},{key:"register",value:function(t,e,n,i){var o=this;i?(this._components[i.type]=i,this._components[i.type].actions=e,this._components[i.type].events=n,this._component_instance_type[t]=i.type):console.warn("Component info is missing for "+t),this._actions[t]={},this._events[t]=n||{},Object.keys(e).forEach((function(n){var i=e[n];"function"==typeof i&&(i={handler:i},o.warnRegistration(t,n,"Function handler should be defined as handler in an object. Auto refactoring done.")),o.validInputsForUI(i,"action",t,n),o._actions[t][n]=i}));var r={};return Object.keys(this._events[t]).forEach((function(e){var n=e;o._events[t][e].id?r[e]={id:o._events[t][e].id}:(o._events[t][e].id=n,r[e]={id:n}),o.validInputsForUI(o._events[t][e],"event",t,e)})),r}},{key:"addToWatchList",value:function(t,e,n,i,o){this._watching[t]||(this._watching[t]={}),void 0===this._watching[t][e]&&(this._watching[t][e]=[]),this._watching[t][e].push({tid:n,act:i,transf:o})}},{key:"watch",value:function(e){var n=this;!1===Array.isArray(e)&&(e=[e]);for(var i=function(){var i=e[o],r=i.component.id,a=i.component.event;i.component.filter?(i.component.regex||(i.component.regex=new RegExp(i.component.filter)),Object.entries(n._actions).forEach((function(e){var o=t._slicedToArray(e,2),r=o[0];o[1],i.component.regex.exec(r)&&n.addToWatchList(r,a,i.trigger.id,i.trigger.action,i.transform)}))):r&&n.addToWatchList(r,a,i.trigger.id,i.trigger.action,i.transform)},o=0;o<e.length;o++)i()}},{key:"addEvent",value:function(t,e,n,i){if(this._watching[t]){var o=this._watching[t][e]||[];for(var r in o){var a=o[r];this.addAction(a.tid,a.act,n,a.transf,i)}}}},{key:"addAction",value:function(t,e,n,i,o){if(this._actions[t]&&this._actions[t][e]){var r=n;if(i)try{r=i(n)}catch(t){console.error("Transform failed",t)}r&&this._actions[t][e].handler(r,o)}}},{key:"getCopyOfEvents",value:function(){return Object.assign({},this._events)}},{key:"getCopyOfWatchers",value:function(){return Object.assign({},this._watching)}},{key:"getCopyOfActions",value:function(){return Object.assign({},this._actions)}},{key:"collectComponentInventory",value:function(){for(var e={},n=0,i=Object.entries(this._components);n<i.length;n++){var o=t._slicedToArray(i[n],2),r=o[0],a=o[1],s="";a.relation&&(s=a.relation.within),e[r]={id:a.type,title:a.name,type:a.type,parent:s}}return e}},{key:"getComponentSchema",value:function(t){return this._components[t].options}},{key:"getComponentByType",value:function(t){return this._components[t]}},{key:"getComponentsRegistered",value:function(){return Object.keys(this._component_instance_type)}},{key:"getComponentType",value:function(t){return this._component_instance_type[t]}}],[{key:"getInstance",value:function(){return null===e._instance&&(e._instance=new e),this._instance}}]),e}();t._defineProperty(e,"_instance",null);var n={EventManager:e,getTransformFunction:function(t){if("string"!=typeof(t.transform||t.code))return"Event code attribute is missing";try{return Function("data",t.transform||t.code)}catch(t){return t+""}}};module.exports=n;
+'use strict';
+
+var _rollupPluginBabelHelpers = require('../_rollupPluginBabelHelpers-aae655da.js');
+
+/* eslint-disable prettier/prettier */
+/***
+https://stackoverflow.com/questions/44719103/singleton-object-in-react-native
+
+import EventManager from './EventManager';
+
+// When storing data.
+let commonData = EventManager.getInstance();
+commonData.setUserID("User1");
+
+// When retrieving stored data.
+let commonData = EventManager.getInstance();
+let userId = commonData.getUserID();
+console.log(userId);
+
+*/
+var EventManager = /*#__PURE__*/function () {
+  function EventManager() {
+    _rollupPluginBabelHelpers._classCallCheck(this, EventManager);
+    _rollupPluginBabelHelpers._defineProperty(this, "_events", {});
+    _rollupPluginBabelHelpers._defineProperty(this, "_watching", {});
+    _rollupPluginBabelHelpers._defineProperty(this, "_actions", {});
+    _rollupPluginBabelHelpers._defineProperty(this, "_components", {});
+    _rollupPluginBabelHelpers._defineProperty(this, "_component_instance_type", {});
+  }
+  _rollupPluginBabelHelpers._createClass(EventManager, [{
+    key: "getType",
+    value:
+    /// //////////////////////////////////////////////
+    /// Utility functions
+    /// //////////////////////////////////////////////
+
+    function getType(oObj) {
+      var res = false;
+      if (_rollupPluginBabelHelpers._typeof(oObj) === 'object') {
+        res = oObj === null ? 'null' :
+        // Check if it is an alien object, for example created as {world:'hello'}
+        typeof oObj.constructor !== 'function' ? 'object' :
+        // else return object name (string)
+        oObj.constructor.name;
+      } else {
+        // Test simple types (not constructed types)
+        res = typeof oObj === 'boolean' ? 'boolean' : typeof oObj === 'number' ? 'number' : typeof oObj === 'string' ? 'string' : typeof oObj === 'function' ? 'function' : false;
+      }
+      return (res + '').toLowerCase();
+    }
+  }, {
+    key: "clearAll",
+    value: function clearAll() {
+      this._events = {};
+      this._watching = {};
+      this._actions = {};
+      this._component_instance_type = {};
+    }
+  }, {
+    key: "warnRegistration",
+    value: function warnRegistration(input_type, component_id, event_name, msg) {
+      var newLocal = 'Update registration for ' + input_type + ' ' + component_id + '.' + event_name + ' : ' + msg;
+      console.warn(newLocal);
+      // TODO: should notify the UI
+    }
+  }, {
+    key: "warnInfoRegistration",
+    value: function warnInfoRegistration(component_id, msg) {
+      console.warn('Update registration for ' + component_id + ': ' + msg);
+      // TODO: should notify the UI
+    }
+  }, {
+    key: "valid",
+    value: function valid(obj, attr, type, default_value, component_id, key, input_type) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (!obj.hasOwnProperty(attr)) {
+        obj[attr] = default_value;
+        this.warnRegistration(input_type, component_id, key, 'Attribute ' + attr + ' missing. Using default value.');
+      }
+      if (this.getType(obj[attr]) !== type) {
+        this.warnRegistration(input_type, component_id, key, "Attribute ".concat(attr, " should be of type ").concat(type, " but is ").concat(this.getType(obj[attr]), " using default values."));
+      }
+    }
+  }, {
+    key: "validInputsForUI",
+    value: function validInputsForUI(obj, input_type, component_id, key) {
+      // check if schema is specified. Used by UI and validating inputs during runtime
+      this.valid(obj, 'schema', 'object', {
+        type: 'object',
+        title: component_id + '-' + key,
+        description: 'Auto generated'
+      }, component_id, key, input_type);
+    }
+  }, {
+    key: "capitalize",
+    value: function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    /// //////////////////////////////////////////////
+    /// Component self registering (is called in component)
+    /// //////////////////////////////////////////////
+  }, {
+    key: "register",
+    value: function register(component_id, actions, events, component_info) {
+      var _this = this;
+      // TODO: validate input action
+      if (!component_info) {
+        console.warn('Component info is missing for ' + component_id); // throw "Component info is missing";
+      } else {
+        this._components[component_info.type] = component_info;
+        this._components[component_info.type].actions = actions;
+        this._components[component_info.type].events = events;
+        this._component_instance_type[component_id] = component_info.type;
+      }
+      this._actions[component_id] = {};
+      this._events[component_id] = events || {};
+      // lets save our actions
+      Object.keys(actions).forEach(function (key) {
+        // validate the action registration
+        var action = actions[key];
+        // if we only specify function, lets refactor
+        if (typeof action === 'function') {
+          action = {
+            handler: action
+          };
+          _this.warnRegistration(component_id, key, 'Function handler should be defined as handler in an object. Auto refactoring done.');
+        }
+        _this.validInputsForUI(action, 'action', component_id, key);
+        _this._actions[component_id][key] = action;
+      });
+      var event_map = {}; // used to return the event mapping id
+
+      // lets assign ids to the events
+      Object.keys(this._events[component_id]).forEach(function (key) {
+        var key_id = key; // TODO: should be random
+        if (!_this._events[component_id][key].id) {
+          // if undefined, null or 0
+          _this._events[component_id][key].id = key_id;
+          event_map[key] = {
+            id: key_id
+          }; // REMOVE ME when refactoring this
+        } else {
+          event_map[key] = {
+            id: _this._events[component_id][key].id
+          }; // TODO: EVENT HAS CALLABLE HANDLER
+        }
+
+        _this.validInputsForUI(_this._events[component_id][key], 'event', component_id, key);
+      });
+      return event_map;
+    }
+
+    /// //////////////////////////////////////////////
+    /// modelui core functions
+    /// //////////////////////////////////////////////
+  }, {
+    key: "addToWatchList",
+    value: function addToWatchList(cid, evt, trigger_id, trigger_action, transform) {
+      if (!this._watching[cid]) {
+        this._watching[cid] = {};
+      }
+      if (this._watching[cid][evt] === undefined) {
+        this._watching[cid][evt] = []; // add a trigger array for component
+      }
+
+      // add to trigger array an action to perform
+      this._watching[cid][evt].push({
+        tid: trigger_id,
+        // trigger id
+        act: trigger_action,
+        // trigger event
+        transf: transform // transformation function (TODO: if not set find one!!!)
+      });
+    }
+  }, {
+    key: "watch",
+    value: function watch(W) {
+      var _this2 = this;
+      // TODO: validate W against registered
+      if (Array.isArray(W) === false) {
+        W = [W];
+      }
+      var _loop = function _loop() {
+        var w = W[i];
+        var cid = w.component.id;
+        var evt = w.component.event;
+        if (w.component.filter) {
+          // if this is a filtered watch
+          if (!w.component.regex) {
+            // only compile expression if missing
+            w.component.regex = new RegExp(w.component.filter);
+          }
+          Object.entries(_this2._actions).forEach(function (_ref) {
+            var _ref2 = _rollupPluginBabelHelpers._slicedToArray(_ref, 2),
+              cid_key = _ref2[0];
+              _ref2[1];
+            if (w.component.regex.exec(cid_key)) {
+              _this2.addToWatchList(cid_key, evt, w.trigger.id, w.trigger.action, w.transform);
+            }
+          });
+        } else {
+          // lets add the id to watch list instead
+          if (cid) {
+            _this2.addToWatchList(cid, evt, w.trigger.id, w.trigger.action, w.transform);
+          }
+        }
+      };
+      for (var i = 0; i < W.length; i++) {
+        _loop();
+      }
+    }
+  }, {
+    key: "addEvent",
+    value: function addEvent(cid, event_name, data, evt) {
+      // are we watching this component
+      if (this._watching[cid]) {
+        // are we watching this component event
+        var actions = this._watching[cid][event_name] || [];
+        for (var a in actions) {
+          var act = actions[a];
+          this.addAction(act.tid, act.act, data, act.transf, evt);
+        }
+      }
+    }
+  }, {
+    key: "addAction",
+    value: function addAction(component_id, action_name, data, transform, evt) {
+      if (this._actions[component_id]) {
+        if (this._actions[component_id][action_name]) {
+          var transformed_data = data;
+          if (transform) {
+            try {
+              transformed_data = transform(data);
+            } catch (e) {
+              console.error('Transform failed', e);
+            }
+          }
+          if (transformed_data) {
+            // only apply action if data is available
+            this._actions[component_id][action_name].handler(transformed_data, evt);
+          }
+        }
+      }
+    }
+
+    /// //////////////////////////////////////////////
+    /// Debugging
+    /// //////////////////////////////////////////////
+  }, {
+    key: "getCopyOfEvents",
+    value: function getCopyOfEvents() {
+      return Object.assign({}, this._events);
+    }
+  }, {
+    key: "getCopyOfWatchers",
+    value: function getCopyOfWatchers() {
+      return Object.assign({}, this._watching);
+    }
+  }, {
+    key: "getCopyOfActions",
+    value: function getCopyOfActions() {
+      return Object.assign({}, this._actions);
+    }
+
+    /// //////////////////////////////////////////////
+    /// Modeller UI related functions
+    /// //////////////////////////////////////////////
+  }, {
+    key: "collectComponentInventory",
+    value: function collectComponentInventory() {
+      var store = {};
+      for (var _i = 0, _Object$entries = Object.entries(this._components); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _rollupPluginBabelHelpers._slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          comp = _Object$entries$_i[1];
+        var parents = '';
+        if (comp.relation) {
+          parents = comp.relation.within;
+        }
+        store[key] = {
+          id: comp.type,
+          title: comp.name,
+          type: comp.type,
+          parent: parents
+        };
+      }
+      return store;
+    }
+  }, {
+    key: "getComponentSchema",
+    value: function getComponentSchema(type) {
+      return this._components[type].options;
+    }
+  }, {
+    key: "getComponentByType",
+    value: function getComponentByType(type) {
+      return this._components[type];
+    }
+  }, {
+    key: "getComponentsRegistered",
+    value: function getComponentsRegistered() {
+      return Object.keys(this._component_instance_type);
+    }
+  }, {
+    key: "getComponentType",
+    value: function getComponentType(component_id) {
+      return this._component_instance_type[component_id];
+    }
+  }], [{
+    key: "getInstance",
+    value:
+    /**
+     * @returns {EventManager}
+     */
+    function getInstance() {
+      if (EventManager._instance === null) {
+        EventManager._instance = new EventManager();
+      }
+      return this._instance;
+    }
+  }]);
+  return EventManager;
+}();
+_rollupPluginBabelHelpers._defineProperty(EventManager, "_instance", null);
+var getTransformFunction = function getTransformFunction(evt) {
+  // the event has .transform as attribute
+  if (typeof (evt.transform || evt.code) !== 'string') {
+    return 'Event code attribute is missing';
+  }
+  try {
+    // TODO: support more params
+    // eslint-disable-next-line no-new-func
+    var fn = Function('data', evt.transform || evt.code);
+    return fn;
+  } catch (e) {
+    return e + '';
+  }
+};
+var Event = {
+  EventManager: EventManager,
+  getTransformFunction: getTransformFunction
+};
+
+module.exports = Event;
 //# sourceMappingURL=Event.js.map

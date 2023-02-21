@@ -1,2 +1,278 @@
-import{d as t,b as e,c as n,f as a,g as o}from"../_rollupPluginBabelHelpers-55d249d8.js";import r from"../event/Event.js";var i=function(){function o(){n(this,o),t(this,"_states",{})}return e(o,[{key:"getManager",value:function(t){return this._states[t]}},{key:"clearAll",value:function(){}},{key:"createState",value:function(t){return this.createManager(t.id,t)}},{key:"createStates",value:function(t){var e,n=a(t);try{for(n.s();!(e=n.n()).done;){var o=e.value;this.createManager(o.id,o)}}catch(t){n.e(t)}finally{n.f()}}},{key:"createManager",value:function(t,e){var n=c.getInstance(),a=n.getComponent(e.type);if(a){var o=a.config,r=this.getManager(t);return r||(o.state&&(e.manager||(e.manager=n),(r=this.createStateByClass(o.state,e)).registerComponent&&r.registerComponent({},{},o),this._states[t]=r),r)}throw new Error("Component type does not exist: "+e.type)}},{key:"createStateByClass",value:function(t,e){return t?new t(e):null}},{key:"createLayoutState",value:function(t){var e=this;s(t,(function(t){t.type&&t.id&&t.config&&(t.data||t.content||t.actions)&&e.createState(t)}))}}],[{key:"getInstance",value:function(){return null===o._instance&&(o._instance=new o),this._instance}}]),o}();t(i,"_instance",null);var s=function(t,e){!function t(n){for(var a in n)e&&n[a]&&e(n[a]),n[a].data&&t(n[a].data),n[a].content&&t([n[a].content]),n[a].actions&&t([n[a].actions])}(t)},c=function(){function a(){n(this,a),t(this,"_components",{})}return e(a,[{key:"getEventManager",value:function(){return this._event_manager}},{key:"getStateFactory",value:function(){return this._state_factory}},{key:"getStateManager",value:function(){return this._state_factory}},{key:"clearAll",value:function(){this._components={}}},{key:"registerComponent",value:function(t){t.manager=this,"function"==typeof t.component?this._components[t.type]=t:console.error("Could not register "+t.type+" since it was not a function")}},{key:"getComponentTypes",value:function(){return Object.keys(this._components)}},{key:"getComponents",value:function(){return this._components}},{key:"getComponent",value:function(t){return this._components[t]}},{key:"getComponentInstance",value:function(t,e){e.manager=this;var n=this._components[t];if(n)return n.is_withclass?n.component:new n.component(e);console.warn("Component instance not registered of type: "+t)}},{key:"collectComponentInventory",value:function(){for(var t={},e=0,n=Object.entries(this._components);e<n.length;e++){var a=o(n[e],2),r=a[0],i=a[1],s=i.config;if(s&&r&&s.type){var c="";if(s.relation&&(c=s.relation.within),t[s.type]={id:s.type,title:s.name,type:s.type,events:i.events,actions:i.triggers,category:"TBD",parent:c,schema:s.options},s.contains)for(var u=0,l=Object.entries(s.contains);u<l.length;u++){var f=o(l[u],2),y=f[0],g=f[1],p=s.contains[y];t[y]={id:y,title:p.title||p.id,category:"TBD",type:y,parent:s.type,schema:g}}}}return t}}],[{key:"getInstance",value:function(){return null===a._instance&&(a._instance=new a,a._instance._event_manager=r.EventManager.getInstance(),a._instance._state_factory=i.getInstance()),this._instance}}]),a}();t(c,"_instance",null);var u={ComponentManager:c,StateManager:i};export{u as default,s as walkLayout};
+import { d as _defineProperty, b as _createClass, c as _classCallCheck, f as _createForOfIteratorHelper, g as _slicedToArray } from '../_rollupPluginBabelHelpers-55d249d8.js';
+import Event from '../event/Event.js';
+
+/// //////////////////////////////////////////
+// State Manager
+/// //////////////////////////////////////////
+var StateManager = /*#__PURE__*/function () {
+  function StateManager() {
+    _classCallCheck(this, StateManager);
+    _defineProperty(this, "_states", {});
+  }
+  _createClass(StateManager, [{
+    key: "getManager",
+    value: function getManager(state_id) {
+      return this._states[state_id];
+    }
+
+    // eslint-disable-next-line prettier/prettier
+  }, {
+    key: "clearAll",
+    value: function clearAll() {}
+  }, {
+    key: "createState",
+    value: function createState(props) {
+      return this.createManager(props.id, props);
+    }
+  }, {
+    key: "createStates",
+    value: function createStates(props_array) {
+      var _iterator = _createForOfIteratorHelper(props_array),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var props = _step.value;
+          this.createManager(props.id, props);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
+  }, {
+    key: "createManager",
+    value: function createManager(state_id, props) {
+      var componentManagerInstance = ComponentManager.getInstance();
+      var _component = componentManagerInstance.getComponent(props.type);
+      if (_component) {
+        var config = _component.config;
+        var state_inst = this.getManager(state_id);
+        if (state_inst) {
+          // TODO: warn that we are trying to create a manager that exists
+          return state_inst;
+        } else {
+          if (config.state) {
+            // make sure to pass component manager
+            if (!props.manager) {
+              props.manager = componentManagerInstance;
+            }
+            // create the class
+            state_inst = this.createStateByClass(config.state, props);
+            if (state_inst.registerComponent) {
+              state_inst.registerComponent({}, {}, config);
+            }
+            this._states[state_id] = state_inst;
+          }
+          return state_inst;
+        }
+      } else {
+        throw new Error('Component type does not exist: ' + props.type);
+      }
+    }
+  }, {
+    key: "createStateByClass",
+    value: function createStateByClass(StateClass, props) {
+      if (StateClass) {
+        return new StateClass(props);
+      }
+      return null;
+    }
+
+    // TODO: create state statemanagers from layout tree
+  }, {
+    key: "createLayoutState",
+    value: function createLayoutState(layout_tree) {
+      var _this = this;
+      walkLayout(layout_tree, function (props) {
+        if (props.type && props.id && props.config && (props.data || props.content || props.actions)) {
+          _this.createState(props);
+        }
+      });
+    }
+  }], [{
+    key: "getInstance",
+    value:
+    /**
+     * @returns {StateManager}
+     */
+    function getInstance() {
+      if (StateManager._instance === null) {
+        StateManager._instance = new StateManager();
+      }
+      return this._instance;
+    }
+  }]);
+  return StateManager;
+}();
+_defineProperty(StateManager, "_instance", null);
+var walkLayout = function walkLayout(layt, callback) {
+  var _walk = function _walk(_layt) {
+    for (var d in _layt) {
+      if (callback && _layt[d]) {
+        callback(_layt[d]);
+      }
+      if (_layt[d].data) {
+        _walk(_layt[d].data);
+      }
+      if (_layt[d].content) {
+        _walk([_layt[d].content]);
+      }
+      if (_layt[d].actions) {
+        _walk([_layt[d].actions]);
+      }
+    }
+  };
+  _walk(layt);
+};
+
+/// //////////////////////////////////////////
+// Component Manager
+/// //////////////////////////////////////////
+var ComponentManager = /*#__PURE__*/function () {
+  function ComponentManager() {
+    _classCallCheck(this, ComponentManager);
+    _defineProperty(this, "_components", {});
+  }
+  _createClass(ComponentManager, [{
+    key: "getEventManager",
+    value: function getEventManager() {
+      return this._event_manager;
+    }
+  }, {
+    key: "getStateFactory",
+    value: function getStateFactory() {
+      return this._state_factory;
+    }
+  }, {
+    key: "getStateManager",
+    value: function getStateManager() {
+      return this._state_factory;
+    }
+  }, {
+    key: "clearAll",
+    value: function clearAll() {
+      this._components = {};
+    }
+  }, {
+    key: "registerComponent",
+    value: function registerComponent(component) {
+      /**
+       * Adds component to layout manager of any type.
+       * Specific types in TYPES are specifically used when automatically generating the layout using AI.
+       */
+
+      // attach managers and factory
+      component.manager = this;
+      if (typeof component.component === 'function') {
+        this._components[component.type] = component;
+      } else {
+        console.error('Could not register ' + component.type + ' since it was not a function');
+      }
+    }
+  }, {
+    key: "getComponentTypes",
+    value: function getComponentTypes() {
+      return Object.keys(this._components);
+    }
+  }, {
+    key: "getComponents",
+    value: function getComponents() {
+      return this._components;
+    }
+  }, {
+    key: "getComponent",
+    value: function getComponent(component_type) {
+      return this._components[component_type];
+    }
+  }, {
+    key: "getComponentInstance",
+    value: function getComponentInstance(component_type, parameters) {
+      // TODO: validate parameter inputs
+      // paramters
+      parameters.manager = this;
+      // create component
+      var c = this._components[component_type];
+      if (c) {
+        // if React component is of type class
+        if (c.is_withclass) {
+          return c.component;
+        } else {
+          // if React component is of type function
+          // eslint-disable-next-line new-cap
+          return new c.component(parameters);
+        }
+      } else {
+        console.warn('Component instance not registered of type: ' + component_type);
+      }
+    }
+  }, {
+    key: "collectComponentInventory",
+    value: function collectComponentInventory() {
+      var store = {};
+      for (var _i = 0, _Object$entries = Object.entries(this._components); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          comp = _Object$entries$_i[1];
+        var cfg = comp.config;
+        if (cfg && key && cfg.type) {
+          var parents = '';
+          if (cfg.relation) {
+            parents = cfg.relation.within;
+          }
+          store[cfg.type] = {
+            id: cfg.type,
+            title: cfg.name,
+            type: cfg.type,
+            events: comp.events,
+            actions: comp.triggers,
+            category: 'TBD',
+            parent: parents,
+            schema: cfg.options
+          };
+          // also add the children
+          if (cfg.contains) {
+            for (var _i2 = 0, _Object$entries2 = Object.entries(cfg.contains); _i2 < _Object$entries2.length; _i2++) {
+              var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+                key_itm = _Object$entries2$_i[0],
+                _comp = _Object$entries2$_i[1];
+              var itm = cfg.contains[key_itm];
+              store[key_itm] = {
+                id: key_itm,
+                title: itm.title || itm.id,
+                category: 'TBD',
+                type: key_itm,
+                parent: cfg.type,
+                schema: _comp
+              };
+            }
+          }
+        }
+      }
+      return store;
+    }
+  }], [{
+    key: "getInstance",
+    value:
+    /**
+     * @returns {ComponentManager}
+     */
+    function getInstance() {
+      if (ComponentManager._instance === null) {
+        ComponentManager._instance = new ComponentManager();
+        ComponentManager._instance._event_manager = Event.EventManager.getInstance();
+        ComponentManager._instance._state_factory = StateManager.getInstance();
+      }
+      return this._instance;
+    }
+  }]);
+  return ComponentManager;
+}();
+_defineProperty(ComponentManager, "_instance", null);
+var Manager = {
+  ComponentManager: ComponentManager,
+  StateManager: StateManager
+};
+
+export { Manager as default, walkLayout };
 //# sourceMappingURL=Manager.js.map

@@ -1,2 +1,50 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("../../_rollupPluginBabelHelpers-aae655da.js"),n=function(){function n(){e._classCallCheck(this,n),e._defineProperty(this,"_memories",{})}return e._createClass(n,[{key:"clearAll",value:function(){this._memories={}}},{key:"registerMemory",value:function(e,n){this._memories[e]=n}},{key:"getMemory",value:function(e){return this._memories[e]}}],[{key:"getInstance",value:function(){return null===n._instance&&(n._instance=new n),this._instance}}]),n}();e._defineProperty(n,"_instance",null);try{window.memoryManager=n.getInstance()}catch(e){}exports.MemoryManager=n;
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var _rollupPluginBabelHelpers = require('../../_rollupPluginBabelHelpers-aae655da.js');
+
+var MemoryManager = /*#__PURE__*/function () {
+  function MemoryManager() {
+    _rollupPluginBabelHelpers._classCallCheck(this, MemoryManager);
+    _rollupPluginBabelHelpers._defineProperty(this, "_memories", {});
+  }
+  _rollupPluginBabelHelpers._createClass(MemoryManager, [{
+    key: "clearAll",
+    value: function clearAll() {
+      this._memories = {};
+    }
+  }, {
+    key: "registerMemory",
+    value: function registerMemory(id, memory) {
+      this._memories[id] = memory;
+    }
+  }, {
+    key: "getMemory",
+    value: function getMemory(id) {
+      return this._memories[id];
+    }
+  }], [{
+    key: "getInstance",
+    value:
+    /**
+     * @returns {MemoryManager}
+     */
+    function getInstance() {
+      if (MemoryManager._instance === null) {
+        MemoryManager._instance = new MemoryManager();
+      }
+      return this._instance;
+    }
+  }]);
+  return MemoryManager;
+}();
+// Shared memory manager (used by code to access memory objects)
+_rollupPluginBabelHelpers._defineProperty(MemoryManager, "_instance", null);
+try {
+  // TODO: add do browser scope for debugging (remove)
+  window.memoryManager = MemoryManager.getInstance();
+} catch (e) {}
+
+exports.MemoryManager = MemoryManager;
 //# sourceMappingURL=MemoryManager.js.map

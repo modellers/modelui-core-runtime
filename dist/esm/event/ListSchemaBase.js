@@ -1,2 +1,458 @@
-import{_ as t,a as e,b as a,c as n,d,e as s,h as r,j as i,i as c}from"../_rollupPluginBabelHelpers-55d249d8.js";import o from"./ListBase.js";import p from"./StateBaseComponent.js";import{findItemIndexById as h,mergeDeep as l,removeItemIndexByIndex as u}from"../util/ObjUtil.js";import"./StateBase.js";import"react";var m=o.triggers,g=o.events,f={$id:"identifiers",$schema:"http://json-schema.org/draft-07/schema#",description:"Identifiers",type:"object",properties:{id:{type:"string"}},required:["id"]},v=function(o){t(m,o);var p=e(m);function m(t){var e;n(this,m),e=p.call(this,t),d(s(e),"findItemIndexById",(function(t,e){return h(t,e)})),d(s(e),"registerComponent",(function(t,a,n){t=t||{},a=a||{};var d={submit:{schema:{},handler:function(t){e.eventManager.addEvent(e.props.id,"submitted",{count:e.state.data.length,items:e.state.data,schema:e.state.schema},{})}},replace:{schema:{},handler:function(t){var a=e.state;t.schema,t.items&&(Array.isArray(t.items)||(t.items=[t.items])),e.eventManager.addEvent(e.props.id,"replacing",{old:a,new:t},{});var n=t;e.updateView("replace",[],[],n.items)&&e.setState(r(r({},e.state),{},{data:n.items||e.state.data,schema:n.schema||e.state.schema})),e.eventManager.addEvent(e.props.id,"replaced",{count:e.state.data.length,items:e.state.data,schema:e.state.schema},{}),e.eventManager.addEvent(e.props.id,"changed",{count:e.state.data.length,items:e.state.data,schema:e.state.schema},{})}},push:{schema:{},handler:function(t){var a=[],n=[],d=c(e.state.data||[]),s={};Array.isArray(t)||(t=[t]),t.forEach((function(t){var r=e.findItemIndexById(t.id,d);null===r?a.push(t):(d[r]=l(d[r],t),n.push(r)),t.selected&&(s={selectedId:t.id,selectedIndex:r})}));var i=[].concat(c(d),a);try{e.eventManager.addEvent(e.props.id,"pushing",a,{}),e.updateView("push",a,n,i)&&e.setState(r(r(r({},e.state),s),{},{data:i}))}catch(t){e.exceptionCatched("push",t)}e.eventManager.addEvent(e.props.id,"pushed",{count:i.length,items:i,added:a},{}),e.eventManager.addEvent(e.props.id,"changed",{count:i.length,items:i,added:a,updated:n},{})}},push_front:{schema:{},handler:function(t){var a=[],n=[],d=c(e.state.data||[]),s={};Array.isArray(t)||(t=[t]),t.forEach((function(t){var r=e.findItemIndexById(t.id,e.state.data);null===r?a.push(t):(d[r]=t,n.push(r)),t.selected&&(s={selectedId:t.id,selectedIndex:r||a.length-1})}));var i=[].concat(a,c(d));e.updateView("push_front",[],n,i)&&e.setState(r(r(r({},e.state),s),{},{data:i})),e.eventManager.addEvent(e.props.id,"changed",{count:i.length,items:i},{})}},delete:{schema:{},handler:function(t){Array.isArray(t)||(t=[t]);var a=e.state.data,n=[],d=[];t.forEach((function(t){if(t.id){var s=e.findItemIndexById(t.id,a);null!==s&&(d.push(t.id),a=u(s,a),n.push(s))}}));try{e.updateView("delete",[],n,a)&&e.setState(r(r({},e.state),{},{data:a}))}catch(t){e.exceptionCatched("delete",t)}e.eventManager.addEvent(e.props.id,"changed",{count:a.length,items:a,deleted:d},{}),e.eventManager.addEvent(e.props.id,"deleted",{count:d.length,items:a,deleted:d},{})}},pop:{schema:{},handler:function(t){e.state.data.length>0&&(e.state.data.splice(e.state.data.length-1,1),e.updateView("pop",[],[],e.state.data)&&(e.setState(r(r({},e.state),{},{data:e.state.data})),e.eventManager.addEvent(e.props.id,"changed",{count:e.state.data.length,items:e.state.data},{})))}},pop_front:{schema:{},handler:function(t){e.state.data.splice(0,1),e.updateView("pop_front",[],[],e.state.data)&&(e.setState(r(r({},e.state),{},{data:e.state.data})),e.eventManager.addEvent(e.props.id,"changed",{count:e.state.data.length,items:e.state.data},{}))}},select:{schema:{},handler:function(t){var a=[],n=[];Array.isArray(t)||(t=[t]);for(var d=0;d<e.state.data.length;d++)e.state.data[d].selected=!1;t.forEach((function(t){if(t.id){var d=e.findItemIndexById(t.id,e.state.data);null!==d&&(e.state.data[d].selected=!e.state.data[d].selected,e.state.selectedId=e.state.data[d].id,e.state.selectedIndex=d,a.push(d),n.push(e.state.data[d]))}})),e.setState(r(r({},e.state),{},{data:e.state.data})),e.eventManager.addEvent(e.props.id,"selecting",t,null),e.updateView("select",t,a,e.state)&&e.eventManager.addEvent(e.props.id,"selected",n,null)}},clear:{schema:{},handler:function(t){e.eventManager.addEvent(e.props.id,"clearing",{count:e.state.data.length,items:e.state.data},{}),e.setState(r(r({},e.state),{},{data:[]})),e.eventManager.addEvent(e.props.id,"cleared",{count:e.state.data.length,items:e.state.data},{}),e.eventManager.addEvent(e.props.id,"changed",{count:e.state.data.length,items:e.state.data},{}),e.updateView("clear",[],[],[])}}};return e.ddEvent=e.eventManager.register(e.props.id,r(r({},d),t),r(r({},g),a),n),e.ddEvent})),e.props=t;var a=[],o=t.data.schema||e.props.schema||f;if(t.data){if(!t.data.items)throw new Error("Expecting data property in data object");Array.isArray(t.data.items)?a=t.data.items:"object"===i(t.data.items)?t.data.items.length&&(a=[t.data.items]):a=[t.data.items]}if(e.state={schema:o,data:a||[],selectedIndex:0,selectedId:null},!e.props.manager)throw new Error("Manager was not passed through StateSchemaList props");return e.eventManager=e.props.manager.getEventManager(),e}return a(m)}(o.StateList),I=function(r){t(c,r);var i=e(c);function c(t){var e;return n(this,c),t.config.options||(t.config.options={}),e=i.call(this,t),d(s(e),"updateData",(function(t,a,n){e.triggerAction("push",[t])})),d(s(e),"updateView",(function(t,e,a,n){return!0})),d(s(e),"exceptionCatched",(function(t,e){})),d(s(e),"findItemIndexById",(function(t,a){if(e.stateManager)return e.stateManager.findItemIndexById(t,a)})),d(s(e),"getData",(function(){return e.state.data})),d(s(e),"showSelectedRow",(function(t){return!!e.props.config.options.select&&t.selected})),d(s(e),"showSelected",(function(t,e){return!0})),d(s(e),"setSelectedId",(function(t,a,n){e.triggerAction("select",{id:t})})),d(s(e),"handleSelect",(function(t,a,n,d){d||e.setSelectedId(a.id,d)})),e.props=t,e}return a(c,[{key:"render",value:function(){return null}}]),c}(p.StateBaseComponent),E={events:g,triggers:m,StateSchemaList:v,ListSchemaBase:I};export{I as ListSchemaBase,v as StateSchemaList,E as default,g as events,m as triggers};
+import { _ as _inherits, a as _createSuper, b as _createClass, c as _classCallCheck, d as _defineProperty, e as _assertThisInitialized, h as _objectSpread2, j as _typeof, i as _toConsumableArray } from '../_rollupPluginBabelHelpers-55d249d8.js';
+import ListBase from './ListBase.js';
+import StateBaseComponent from './StateBaseComponent.js';
+import { findItemIndexById, mergeDeep, removeItemIndexByIndex } from '../util/ObjUtil.js';
+import './StateBase.js';
+import 'react';
+
+// event handler
+// import Event from './Event'
+
+var triggers = ListBase.triggers;
+var events = ListBase.events;
+var schema_with_ids = {
+  $id: 'identifiers',
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  description: 'Identifiers',
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string'
+    }
+  },
+  required: ['id']
+};
+var StateSchemaList = /*#__PURE__*/function (_ListBase$StateList) {
+  _inherits(StateSchemaList, _ListBase$StateList);
+  var _super = _createSuper(StateSchemaList);
+  function StateSchemaList(props) {
+    var _this;
+    _classCallCheck(this, StateSchemaList);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "findItemIndexById", function (id, data) {
+      return findItemIndexById(id, data);
+    });
+    _defineProperty(_assertThisInitialized(_this), "registerComponent", function (actionHandlers, eventHandlers, component_info) {
+      actionHandlers = actionHandlers || {};
+      eventHandlers = eventHandlers || {};
+      // add our known handlers
+      var dataActionHandlers = {
+        submit: {
+          schema: {},
+          handler: function handler(objs) {
+            // submit
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'submitted', {
+              count: _this.state.data.length,
+              items: _this.state.data,
+              schema: _this.state.schema
+            }, {});
+          }
+        },
+        replace: {
+          // is the only way to change the schema
+          schema: {},
+          handler: function handler(objs) {
+            // replace content
+
+            // make sure we get items and / or schema properties
+            var data_state = _this.state;
+            if (objs.schema) ; // TODO: validate schema
+            if (objs.items) {
+              if (!Array.isArray(objs.items)) {
+                objs.items = [objs.items];
+              }
+              // TODO: validate data (new or old) against new schema
+            }
+
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'replacing', {
+              old: data_state,
+              "new": objs
+            }, {});
+            var data = objs;
+            if (_this.updateView('replace', [], [], data.items)) {
+              _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                data: data.items || _this.state.data,
+                schema: data.schema || _this.state.schema
+              }));
+            }
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'replaced', {
+              count: _this.state.data.length,
+              items: _this.state.data,
+              schema: _this.state.schema
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: _this.state.data.length,
+              items: _this.state.data,
+              schema: _this.state.schema
+            }, {});
+          }
+        },
+        push: {
+          schema: {},
+          handler: function handler(objs) {
+            // append
+            var data_added = [];
+            var data_updated = []; // contains ids
+            var data_state = _toConsumableArray(_this.state.data || []); // FIXME: use better way
+            var selected = {};
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            objs.forEach(function (obj) {
+              var idx = _this.findItemIndexById(obj.id, data_state);
+              if (idx === null) {
+                data_added.push(obj);
+              } else {
+                // update the index
+                data_state[idx] = mergeDeep(data_state[idx], obj);
+                data_updated.push(idx);
+              }
+              if (obj.selected) {
+                // TODO: test that we can push items that are selected
+                selected = {
+                  selectedId: obj.id,
+                  selectedIndex: idx
+                };
+              }
+            });
+            var data = [].concat(_toConsumableArray(data_state), data_added);
+            // notify parent class of push event
+            try {
+              // Event.EventManager.getInstance().addEvent(
+              _this.eventManager.addEvent(_this.props.id, 'pushing', data_added, {});
+              if (_this.updateView('push', data_added, data_updated, data)) {
+                _this.setState(_objectSpread2(_objectSpread2(_objectSpread2({}, _this.state), selected), {}, {
+                  data: data
+                }));
+              }
+            } catch (e) {
+              _this.exceptionCatched('push', e);
+            }
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'pushed', {
+              count: data.length,
+              items: data,
+              added: data_added
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: data.length,
+              items: data,
+              added: data_added,
+              updated: data_updated
+            }, {});
+            // FIXME: this.showSelected(selected.selectedId, selected.selectedIndex || -1);
+          }
+        },
+
+        push_front: {
+          schema: {},
+          handler: function handler(objs) {
+            var data_added = [];
+            var data_updated = [];
+            var data_state = _toConsumableArray(_this.state.data || []); // FIXME: use better way
+            var selected = {};
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            objs.forEach(function (obj) {
+              var idx = _this.findItemIndexById(obj.id, _this.state.data);
+              if (idx === null) {
+                data_added.push(obj);
+              } else {
+                // update the index
+                data_state[idx] = obj;
+                data_updated.push(idx);
+              }
+              if (obj.selected) {
+                // TODO: test that we can push items that are selected
+                selected = {
+                  selectedId: obj.id,
+                  selectedIndex: idx || data_added.length - 1
+                };
+              }
+            });
+            var data = [].concat(data_added, _toConsumableArray(data_state));
+            if (_this.updateView('push_front', [], data_updated, data)) {
+              _this.setState(_objectSpread2(_objectSpread2(_objectSpread2({}, _this.state), selected), {}, {
+                data: data
+              }));
+            }
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: data.length,
+              items: data
+            }, {});
+            // FIXME: this.showSelected(selected.selectedId, selected.selectedIndex || -1);
+          }
+        },
+
+        "delete": {
+          schema: {},
+          handler: function handler(objs) {
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            var data = _this.state.data;
+            var data_updated = [];
+            var deleting = [];
+            objs.forEach(function (obj) {
+              if (obj.id) {
+                // requires array
+                var idx = _this.findItemIndexById(obj.id, data);
+                if (idx !== null) {
+                  deleting.push(obj.id);
+                  data = removeItemIndexByIndex(idx, data);
+                  data_updated.push(idx);
+                }
+              }
+            });
+            try {
+              if (_this.updateView('delete', [], data_updated, data)) {
+                _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                  data: data
+                }));
+              }
+            } catch (e) {
+              _this.exceptionCatched('delete', e);
+            }
+
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: data.length,
+              items: data,
+              deleted: deleting
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'deleted', {
+              count: deleting.length,
+              items: data,
+              deleted: deleting
+            }, {});
+          }
+        },
+        pop: {
+          schema: {},
+          handler: function handler(obj) {
+            if (_this.state.data.length > 0) {
+              _this.state.data.splice(_this.state.data.length - 1, 1);
+              if (_this.updateView('pop', [], [], _this.state.data)) {
+                _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                  data: _this.state.data
+                }));
+                // Event.EventManager.getInstance().addEvent(
+                _this.eventManager.addEvent(_this.props.id, 'changed', {
+                  count: _this.state.data.length,
+                  items: _this.state.data
+                }, {});
+              }
+            }
+          }
+        },
+        pop_front: {
+          schema: {},
+          handler: function handler(obj) {
+            _this.state.data.splice(0, 1);
+            if (_this.updateView('pop_front', [], [], _this.state.data)) {
+              _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+                data: _this.state.data
+              }));
+              // Event.EventManager.getInstance().addEvent(
+              _this.eventManager.addEvent(_this.props.id, 'changed', {
+                count: _this.state.data.length,
+                items: _this.state.data
+              }, {});
+            }
+          }
+        },
+        select: {
+          schema: {},
+          handler: function handler(objs) {
+            var data_updated = [];
+            var selected = [];
+            // want an array
+            if (!Array.isArray(objs)) {
+              objs = [objs];
+            }
+            // allow only one selection
+            for (var i = 0; i < _this.state.data.length; i++) {
+              _this.state.data[i].selected = false;
+            }
+            // find selected
+            objs.forEach(function (obj) {
+              if (obj.id) {
+                // requires array
+                var idx = _this.findItemIndexById(obj.id, _this.state.data);
+                if (idx !== null) {
+                  _this.state.data[idx].selected = !_this.state.data[idx].selected;
+                  _this.state.selectedId = _this.state.data[idx].id;
+                  _this.state.selectedIndex = idx;
+                  data_updated.push(idx);
+                  selected.push(_this.state.data[idx]);
+                }
+              }
+            });
+            // for now we just replace the state
+            _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+              data: _this.state.data
+            }));
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'selecting', objs, null);
+            if (_this.updateView('select', objs, data_updated, _this.state)) {
+              // Event.EventManager.getInstance().addEvent(
+              _this.eventManager.addEvent(_this.props.id, 'selected', selected, null);
+            }
+          }
+        },
+        clear: {
+          schema: {},
+          handler: function handler(obj) {
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'clearing', {
+              count: _this.state.data.length,
+              items: _this.state.data
+            }, {});
+            _this.setState(_objectSpread2(_objectSpread2({}, _this.state), {}, {
+              data: []
+            }));
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'cleared', {
+              count: _this.state.data.length,
+              items: _this.state.data
+            }, {});
+            // Event.EventManager.getInstance().addEvent(
+            _this.eventManager.addEvent(_this.props.id, 'changed', {
+              count: _this.state.data.length,
+              items: _this.state.data
+            }, {});
+            _this.updateView('clear', [], [], []);
+          }
+        }
+      };
+
+      // register componenet overiding or adding new event handlers
+      // this.ddEvent = Event.EventManager.getInstance().register(
+      _this.ddEvent = _this.eventManager.register(_this.props.id, _objectSpread2(_objectSpread2({}, dataActionHandlers), actionHandlers), _objectSpread2(_objectSpread2({}, events), eventHandlers), component_info);
+      return _this.ddEvent;
+    });
+    _this.props = props;
+    // ensure array
+    var _data = [];
+    var _schema = props.data.schema || _this.props.schema || schema_with_ids; // expect ids
+    if (props.data) {
+      // make sure we have at least a data property
+      if (!props.data.items) {
+        throw new Error('Expecting data property in data object');
+      }
+      if (Array.isArray(props.data.items)) {
+        _data = props.data.items;
+      } else {
+        // check if this is an empty object
+        if (_typeof(props.data.items) === 'object') {
+          // objects should not be empty
+          if (props.data.items.length) {
+            _data = [props.data.items];
+          }
+        } else {
+          _data = [props.data.items];
+        }
+      }
+    }
+    // apply default values
+    _this.state = {
+      schema: _schema,
+      data: _data || [],
+      selectedIndex: 0,
+      selectedId: null
+    };
+    if (!_this.props.manager) {
+      throw new Error('Manager was not passed through StateSchemaList props');
+    }
+    _this.eventManager = _this.props.manager.getEventManager();
+    return _this;
+  }
+  return _createClass(StateSchemaList);
+}(ListBase.StateList);
+var ListSchemaBase = /*#__PURE__*/function (_StateBaseComponent$S) {
+  _inherits(ListSchemaBase, _StateBaseComponent$S);
+  var _super2 = _createSuper(ListSchemaBase);
+  /**
+   * Used to manage internal state of avatars
+   */
+  function ListSchemaBase(props) {
+    var _this2;
+    _classCallCheck(this, ListSchemaBase);
+    if (!props.config.options) {
+      props.config.options = {};
+    }
+    _this2 = _super2.call(this, props);
+    _defineProperty(_assertThisInitialized(_this2), "updateData", function (change, object_id, silent) {
+      // debugger;
+      // const change_row_idx = this.findItemIndexById(object_id.id, this.state.data);
+      // do the update
+      _this2.triggerAction('push', [change]);
+      // this.state.data[change_row_idx] = mergeDeep (this.state.data[change_row_idx], change)
+    });
+    _defineProperty(_assertThisInitialized(_this2), "updateView", function (action, arr, updated, data) {
+      // extend by parent
+      return true;
+    });
+    _defineProperty(_assertThisInitialized(_this2), "exceptionCatched", function (action_name, event_object) {
+      // console.info('ListBase: ' + action_name + ' --> ', event_object)
+    });
+    _defineProperty(_assertThisInitialized(_this2), "findItemIndexById", function (id, data) {
+      if (_this2.stateManager) {
+        return _this2.stateManager.findItemIndexById(id, data);
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this2), "getData", function () {
+      return _this2.state.data;
+    });
+    _defineProperty(_assertThisInitialized(_this2), "showSelectedRow", function (row) {
+      if (_this2.props.config.options.select) {
+        return row.selected;
+      }
+      return false;
+    });
+    _defineProperty(_assertThisInitialized(_this2), "showSelected", function (id, idx) {
+      // parent implementation to update the visual representation
+      return true; // returns true to update state. Else do not update state.
+    });
+    _defineProperty(_assertThisInitialized(_this2), "setSelectedId", function (id, evt, selected) {
+      // EventManager.getInstance().addAction(this.props.id, 'select', { id: id });
+      _this2.triggerAction('select', {
+        id: id
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this2), "handleSelect", function (key, data, index, evt) {
+      if (!evt) {
+        _this2.setSelectedId(data.id, evt);
+      }
+    });
+    _this2.props = props;
+    return _this2;
+  }
+  _createClass(ListSchemaBase, [{
+    key: "render",
+    value: function render() {
+      return null;
+    }
+  }]);
+  return ListSchemaBase;
+}(StateBaseComponent.StateBaseComponent);
+var ListSchemaBase$1 = {
+  events: events,
+  triggers: triggers,
+  StateSchemaList: StateSchemaList,
+  ListSchemaBase: ListSchemaBase
+};
+
+export { ListSchemaBase, StateSchemaList, ListSchemaBase$1 as default, events, triggers };
 //# sourceMappingURL=ListSchemaBase.js.map

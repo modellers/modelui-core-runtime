@@ -1,2 +1,390 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("../_rollupPluginBabelHelpers-aae655da.js");function t(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var o=t(require("react")),n=function(e,t,n,a,r,c,i){if(!i)throw Error("TestUtil._createComponent: Manager was not provided through props for component "+n);if(null!==e&&"function"!=typeof e.create)throw Error("_createComponent is missing renderer function");r.render?e.create(o.default.createElement(t,{id:n,key:n,data:a,config:{options:r},schema:c,manager:i})):new t({id:n,key:n,data:a,config:{options:r},schema:c,manager:i})},a=function(t,o,a,r,c,i,p,s,l){if(l=l||{render:!0},s=s||{},"function"!=typeof o)throw Error("createComponentClassTests is missing registerComponents");if(null!==a&&"function"!=typeof a.create)throw Error("createComponentClassTests is not a component renderer");t.clearAll(),t.getStateManager().clearAll(),t.getEventManager().clearAll(),o(t);var x=t.getComponent(r.type),g=x.component,y=x.triggers,u=x.events,v=r.type+"_id";return t.getStateManager().clearAll(),t.getStateManager().createState({type:r.type,data:s,id:v,manager:t}),[{title:v+" trigger registration contains same actions as in component trigger export",test:function(){t.getStateManager().clearAll(),n(a,g,v,s,l,p,t);var e=y,o=t.getEventManager().getCopyOfActions();expect(Object.keys(o)).toEqual([v]),expect(Object.keys(o[v])).toEqual(Object.keys(e))}},{title:v+" trigger export registration contains required information",test:function(){var e=y;expect(Object.keys(e)).toEqual(c),Object.keys(e).forEach((function(t,o){expect(Object.keys(e[t])).toContain("info"),expect(Object.keys(e[t].info)).toContain("name"),expect(Object.keys(e[t].info)).toContain("description"),expect(Object.keys(e[t])).toContain("schema"),expect(Object.keys(e[t])).toContain("alias")}))}},{title:v+" component instance has trigger registration handlers",test:function(){t.getStateManager().clearAll(),n(a,g,v,s,l,p,t);var e=y,o=t.getEventManager().getCopyOfActions();Object.keys(e).forEach((function(e,t){expect(Object.keys(o[v][e])).toContain("handler"),expect("function"==typeof o[v][e].handler).toBeTruthy()}))}},{title:v+" event registration",test:function(){var e=i,t=u;expect(Object.keys(t)).toEqual(e),e.forEach((function(e,o){expect(Object.keys(t[e])).toContain("info"),expect(Object.keys(t[e].info)).toContain("name"),expect(Object.keys(t[e].info)).toContain("description"),expect(Object.keys(t[e])).toContain("schema"),expect(Object.keys(t[e])).toContain("alias")}))}},{title:v+" config has options",test:function(){expect(Object.keys(r)).toContain("options");var e=r.options;expect(Object.keys(e)).toContain("id"),expect(Object.keys(e)).toContain("$schema"),expect(Object.keys(e)).toContain("description"),expect(Object.keys(e)).toContain("x-layout"),expect(Object.keys(e)).toContain("type"),expect(Object.keys(e)).toContain("version"),expect(Object.keys(e)).toContain("properties"),expect(Object.keys(e)).toContain("required")}},{title:v+" config has basic info",test:function(){expect(Object.keys(r)).toContain("options"),expect(e._typeof(r.name)).toEqual("string"),expect(e._typeof(r.type)).toEqual("string"),expect(e._typeof(r.author)).toEqual("string"),expect(e._typeof(r.description)).toEqual("string"),expect(e._typeof(r.version)).toEqual("number"),expect(e._typeof(r.author)).toEqual("string"),expect(e._typeof(r.relation)).toEqual("object")}},{title:v+" config has relational info",test:function(){expect(Object.keys(r)).toContain("options"),expect(e._typeof(r.relation)).toEqual("object"),expect(e._typeof(r.relation.within)).toEqual("string")}},{title:v+" option schema is accessible through buildStoreInfo",test:function(){n(a,g,v,s,l,p,t);var o=t.getEventManager().collectComponentInventory();expect(o).toHaveProperty(r.type);var c=o[r.type];expect(e._typeof(c.id)).toEqual("string"),expect(e._typeof(c.title)).toEqual("string"),expect(e._typeof(c.type)).toEqual("string"),expect(e._typeof(c.parent)).toEqual("string")}},{title:v+" schema definition is accessible through getComponentSchema",test:function(){var e=t.getEventManager().getComponentSchema(r.type);expect(e).toEqual(r.options)}},{title:v+" events definition is accessible through getComponentEventsByType",test:function(){var e=t.getEventManager().getComponentByType(r.type);expect(e).not.toEqual(void 0),expect(e.actions).toEqual(r.actions)}},{title:v+" actions definition is accessible through getComponentActionsByType",test:function(){var e=t.getEventManager().getComponentByType(r.type);expect(e).not.toEqual(void 0),expect(e.events).toEqual(r.events)}}]},r=function(t,o,n,a,r,c,i,p){return[{title:n+" basic registration info",test:function(){t.clearAll(),t.getStateManager().clearAll(),t.getEventManager().clearAll(),o(t);var e=t.getComponent(n);expect(e).not.toEqual(void 0),expect(e.type).toEqual(n),expect(e.component).toEqual(a),expect(e.config).toEqual(i),expect(e.events).toEqual(c),expect(e.triggers).toEqual(r)}},{title:n+" configuration registration",test:function(){t.clearAll(),t.getStateManager().clearAll(),t.getEventManager().clearAll(),o(t);var e=t.getComponent(n);expect(e).not.toEqual(void 0);var a=e.config;expect(a).toHaveProperty("type"),expect(a).toHaveProperty("name"),expect(a).toHaveProperty("relation"),expect(a.relation).toHaveProperty("within"),expect(a.relation).toHaveProperty("contains")}},{title:n+" matches rendered type and schema",test:function(){t.clearAll(),t.getStateManager().clearAll(),t.getEventManager().clearAll(),o(t);var e=t.getComponent(n);expect(e).not.toEqual(void 0);var a=e.config;expect(a).toHaveProperty("type"),expect(a).toHaveProperty("options"),expect(a.options.id).toEqual(a.type)}},{title:n+" tests option schema",test:function(){if(Object.keys(p).length){t.clearAll(),t.getStateManager().clearAll(),t.getEventManager().clearAll(),o(t);var e=t.getComponent(n);expect(e).not.toEqual(void 0);var a=e.config.options;expect(a).toHaveProperty("id"),expect(a).toHaveProperty("$schema"),expect(a).toHaveProperty("title"),expect(a).toHaveProperty("description"),expect(a).toHaveProperty("x-layout"),expect(a).toHaveProperty("type"),expect(a).toHaveProperty("version"),expect(a).toHaveProperty("properties"),expect(a).toHaveProperty("required"),expect(a["x-layout"]).toEqual("component")}}},{title:n+" tests containing components",test:function(){if(Object.keys(p).length){t.clearAll(),t.getStateManager().clearAll(),t.getEventManager().clearAll(),o(t);var a=t.getComponent(n);expect(a).not.toEqual(void 0);var r=a.config;expect(r).toHaveProperty("contains");for(var c=0,i=Object.entries(p);c<i.length;c++){var s=e._slicedToArray(i[c],2),l=s[0];s[1],expect(r.contains).toHaveProperty(l);var x=r.contains[l];expect(x).toHaveProperty("id"),expect(x).toHaveProperty("$schema"),expect(x).toHaveProperty("title"),expect(x).toHaveProperty("description"),expect(x).toHaveProperty("x-layout"),expect(x).toHaveProperty("type"),expect(x).toHaveProperty("version"),expect(x).toHaveProperty("properties"),expect(x).toHaveProperty("required"),expect(x.id).toEqual(l),expect(x["x-layout"]).toEqual("component-item")}}}}]};function c(e,t,o,n,a,r){var c="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,(function(e){var t=16*Math.random()|0;return("x"===e?t:3&t|8).toString(16)}));e.getEventManager().register(c,{result:{schema:{},handler:r}},{},{}),e.getEventManager().watch([{component:{id:c,event:"result"},trigger:{id:t,action:o},transform:function(e){return e}},{component:{id:t,event:a},trigger:{id:c,action:"result"},transform:function(e){return e}}]),e.getEventManager().addEvent(c,"result",n,{})}var i={createComponentClassTests:a,createComponentRegisterTests:r,testEventSequence:c};exports.createComponentClassTests=a,exports.createComponentRegisterTests=r,exports.default=i,exports.testEventSequence=c;
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var _rollupPluginBabelHelpers = require('../_rollupPluginBabelHelpers-aae655da.js');
+var React = require('react');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+
+var _createComponent = function _createComponent(renderer, _Component, component_id, data, options, schema_expected, manager) {
+  // check for component manager
+  if (!manager) {
+    throw Error('TestUtil._createComponent: Manager was not provided through props for component ' + component_id);
+  }
+  if (renderer !== null) {
+    if (typeof renderer.create !== 'function') {
+      throw Error('_createComponent is missing renderer function');
+    }
+  }
+  if (options.render) {
+    renderer.create(
+    /*#__PURE__*/
+    // eslint-disable-next-line react/jsx-pascal-case
+    React__default["default"].createElement(_Component, {
+      id: component_id,
+      key: component_id,
+      data: data,
+      config: {
+        options: options
+      },
+      schema: schema_expected,
+      manager: manager
+    }));
+  } else {
+    new _Component({
+      id: component_id,
+      key: component_id,
+      data: data,
+      config: {
+        options: options
+      },
+      schema: schema_expected,
+      manager: manager
+    });
+  }
+};
+var createComponentClassTests = function createComponentClassTests(componentManagerInstance, registerComponents, renderer, config, triggers_expected, events_expected, schema_expected, data, options) {
+  options = options || {
+    render: true
+  };
+  data = data || {};
+  if (typeof registerComponents !== 'function') {
+    throw Error('createComponentClassTests is missing registerComponents');
+  }
+  if (renderer !== null) {
+    if (typeof renderer.create !== 'function') {
+      throw Error('createComponentClassTests is not a component renderer');
+    }
+  }
+  // TODO: run this before each
+  componentManagerInstance.clearAll();
+  componentManagerInstance.getStateManager().clearAll();
+  componentManagerInstance.getEventManager().clearAll();
+  registerComponents(componentManagerInstance);
+  var c = componentManagerInstance.getComponent(config.type);
+  var _Component = c.component;
+  var triggers = c.triggers;
+  var events = c.events;
+  var component_id = config.type + '_id';
+  componentManagerInstance.getStateManager().clearAll();
+  componentManagerInstance.getStateManager().createState({
+    type: config.type,
+    data: data,
+    id: component_id,
+    manager: componentManagerInstance
+  });
+  return [{
+    title: component_id + ' trigger registration contains same actions as in component trigger export',
+    test: function test() {
+      componentManagerInstance.getStateManager().clearAll();
+      _createComponent(renderer, _Component, component_id, data, options, schema_expected, componentManagerInstance);
+      var trigger_info_events = triggers;
+      var actions = componentManagerInstance.getEventManager().getCopyOfActions();
+      expect(Object.keys(actions)).toEqual([component_id]);
+      // check that we are registering the correct items
+      expect(Object.keys(actions[component_id])).toEqual(Object.keys(trigger_info_events));
+    }
+  }, {
+    title: component_id + ' trigger export registration contains required information',
+    test: function test() {
+      var trigger_info_events = triggers;
+      // check that the registered event count matches the registered handler count
+      expect(Object.keys(trigger_info_events)).toEqual(triggers_expected);
+      // check that the registered events attributes are defined
+      Object.keys(trigger_info_events).forEach(function (trigger_event, idx) {
+        // check info
+        expect(Object.keys(trigger_info_events[trigger_event])).toContain('info');
+        expect(Object.keys(trigger_info_events[trigger_event].info)).toContain('name');
+        expect(Object.keys(trigger_info_events[trigger_event].info)).toContain('description');
+        // check schema
+        expect(Object.keys(trigger_info_events[trigger_event])).toContain('schema');
+        // check alias
+        expect(Object.keys(trigger_info_events[trigger_event])).toContain('alias');
+      });
+    }
+  }, {
+    title: component_id + ' component instance has trigger registration handlers',
+    test: function test() {
+      componentManagerInstance.getStateManager().clearAll();
+      _createComponent(renderer, _Component, component_id, data, options, schema_expected, componentManagerInstance);
+      var trigger_info_events = triggers;
+      var actions = componentManagerInstance.getEventManager().getCopyOfActions();
+      // check that the registered events attributes are defined
+      Object.keys(trigger_info_events).forEach(function (trigger_event, idx) {
+        // check handler
+        expect(Object.keys(actions[component_id][trigger_event])).toContain('handler');
+        expect(typeof actions[component_id][trigger_event].handler === 'function').toBeTruthy();
+      });
+    }
+  }, {
+    title: component_id + ' event registration',
+    test: function test() {
+      var trigger_events = events_expected;
+      var actions = events;
+      expect(Object.keys(actions)).toEqual(trigger_events);
+      trigger_events.forEach(function (trigger_event, idx) {
+        // check info
+        expect(Object.keys(actions[trigger_event])).toContain('info');
+        expect(Object.keys(actions[trigger_event].info)).toContain('name');
+        expect(Object.keys(actions[trigger_event].info)).toContain('description');
+        // check schema
+        expect(Object.keys(actions[trigger_event])).toContain('schema');
+        // check alias
+        expect(Object.keys(actions[trigger_event])).toContain('alias');
+      });
+    }
+  }, {
+    title: component_id + ' config has options',
+    test: function test() {
+      expect(Object.keys(config)).toContain('options');
+      // check that we have the basics for a schema
+      var options_schema = config.options;
+      expect(Object.keys(options_schema)).toContain('id');
+      expect(Object.keys(options_schema)).toContain('$schema');
+      expect(Object.keys(options_schema)).toContain('description');
+      expect(Object.keys(options_schema)).toContain('x-layout');
+      expect(Object.keys(options_schema)).toContain('type');
+      expect(Object.keys(options_schema)).toContain('version');
+      expect(Object.keys(options_schema)).toContain('properties');
+      expect(Object.keys(options_schema)).toContain('required');
+    }
+  }, {
+    title: component_id + ' config has basic info',
+    test: function test() {
+      expect(Object.keys(config)).toContain('options');
+      // check that we have the basics for a schema
+      expect(_rollupPluginBabelHelpers._typeof(config.name)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(config.type)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(config.author)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(config.description)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(config.version)).toEqual('number');
+      expect(_rollupPluginBabelHelpers._typeof(config.author)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(config.relation)).toEqual('object');
+    }
+  }, {
+    title: component_id + ' config has relational info',
+    test: function test() {
+      expect(Object.keys(config)).toContain('options');
+      // check that we have the basics for a schema
+      expect(_rollupPluginBabelHelpers._typeof(config.relation)).toEqual('object');
+      expect(_rollupPluginBabelHelpers._typeof(config.relation.within)).toEqual('string');
+    }
+  }, {
+    title: component_id + ' option schema is accessible through buildStoreInfo',
+    test: function test() {
+      /* componentManagerInstance.clearAll();
+      registerComponents();
+      */
+      _createComponent(renderer, _Component, component_id, data, options, schema_expected, componentManagerInstance);
+      // fetch result
+      var store = componentManagerInstance.getEventManager().collectComponentInventory();
+      // should exist
+      expect(store).toHaveProperty(config.type);
+      var store_item = store[config.type];
+      // check that we have the required info
+      // as define din ui-modeler-events.js store data
+      expect(_rollupPluginBabelHelpers._typeof(store_item.id)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(store_item.title)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(store_item.type)).toEqual('string');
+      expect(_rollupPluginBabelHelpers._typeof(store_item.parent)).toEqual('string');
+    }
+  }, {
+    title: component_id + ' schema definition is accessible through getComponentSchema',
+    test: function test() {
+      var schema = componentManagerInstance.getEventManager().getComponentSchema(config.type);
+      expect(schema).toEqual(config.options);
+    }
+  }, {
+    title: component_id + ' events definition is accessible through getComponentEventsByType',
+    test: function test() {
+      var component = componentManagerInstance.getEventManager().getComponentByType(config.type);
+      expect(component).not.toEqual(undefined);
+      expect(component.actions).toEqual(config.actions);
+    }
+  }, {
+    title: component_id + ' actions definition is accessible through getComponentActionsByType',
+    test: function test() {
+      var component = componentManagerInstance.getEventManager().getComponentByType(config.type);
+      expect(component).not.toEqual(undefined);
+      expect(component.events).toEqual(config.events);
+    }
+  } /* {
+    title: component_id + ' events definition is accessible through getEvents',
+    test: () => {
+    }
+    }, {
+    title: component_id + ' action definition is accessible through getActions',
+    test: () => {
+    }
+    }
+    */];
+};
+
+var createComponentRegisterTests = function createComponentRegisterTests(componentManagerInstance, registerComponents, component_type, _Component, triggers, events, config, contains) {
+  return [{
+    title: component_type + ' basic registration info',
+    test: function test() {
+      componentManagerInstance.clearAll();
+      componentManagerInstance.getStateManager().clearAll();
+      componentManagerInstance.getEventManager().clearAll();
+      registerComponents(componentManagerInstance);
+      var c = componentManagerInstance.getComponent(component_type);
+      expect(c).not.toEqual(undefined);
+      expect(c.type).toEqual(component_type);
+      expect(c.component).toEqual(_Component);
+      expect(c.config).toEqual(config);
+      expect(c.events).toEqual(events);
+      expect(c.triggers).toEqual(triggers);
+    }
+  }, {
+    title: component_type + ' configuration registration',
+    test: function test() {
+      componentManagerInstance.clearAll();
+      componentManagerInstance.getStateManager().clearAll();
+      componentManagerInstance.getEventManager().clearAll();
+      registerComponents(componentManagerInstance);
+      var c = componentManagerInstance.getComponent(component_type);
+      expect(c).not.toEqual(undefined);
+      var cfg = c.config;
+      expect(cfg).toHaveProperty('type');
+      expect(cfg).toHaveProperty('name');
+      expect(cfg).toHaveProperty('relation');
+      expect(cfg.relation).toHaveProperty('within');
+      expect(cfg.relation).toHaveProperty('contains');
+    }
+  }, {
+    title: component_type + ' matches rendered type and schema',
+    test: function test() {
+      componentManagerInstance.clearAll();
+      componentManagerInstance.getStateManager().clearAll();
+      componentManagerInstance.getEventManager().clearAll();
+      registerComponents(componentManagerInstance);
+      var c = componentManagerInstance.getComponent(component_type);
+      expect(c).not.toEqual(undefined);
+      var cfg = c.config;
+      expect(cfg).toHaveProperty('type');
+      expect(cfg).toHaveProperty('options');
+      // test that the config type is the type iin our options schema
+      expect(cfg.options.id).toEqual(cfg.type);
+      // TODO: test that this is the same as in component registered
+    }
+  }, {
+    title: component_type + ' tests option schema',
+    test: function test() {
+      if (Object.keys(contains).length) {
+        // test only if we have keys
+        componentManagerInstance.clearAll();
+        componentManagerInstance.getStateManager().clearAll();
+        componentManagerInstance.getEventManager().clearAll();
+        registerComponents(componentManagerInstance);
+        var c = componentManagerInstance.getComponent(component_type);
+        expect(c).not.toEqual(undefined);
+        var cfg = c.config;
+        var schema_option = cfg.options;
+        expect(schema_option).toHaveProperty('id');
+        expect(schema_option).toHaveProperty('$schema');
+        expect(schema_option).toHaveProperty('title');
+        expect(schema_option).toHaveProperty('description');
+        expect(schema_option).toHaveProperty('x-layout');
+        expect(schema_option).toHaveProperty('type');
+        expect(schema_option).toHaveProperty('version');
+        expect(schema_option).toHaveProperty('properties');
+        expect(schema_option).toHaveProperty('required');
+        expect(schema_option['x-layout']).toEqual('component');
+      }
+    }
+  }, {
+    title: component_type + ' tests containing components',
+    test: function test() {
+      if (Object.keys(contains).length) {
+        // test only if we have keys
+        componentManagerInstance.clearAll();
+        componentManagerInstance.getStateManager().clearAll();
+        componentManagerInstance.getEventManager().clearAll();
+        registerComponents(componentManagerInstance);
+        var c = componentManagerInstance.getComponent(component_type);
+        expect(c).not.toEqual(undefined);
+        var cfg = c.config;
+        expect(cfg).toHaveProperty('contains');
+        // eslint-disable-next-line no-unused-vars
+        for (var _i = 0, _Object$entries = Object.entries(contains); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _rollupPluginBabelHelpers._slicedToArray(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0];
+            _Object$entries$_i[1];
+          expect(cfg.contains).toHaveProperty(key);
+          // should expect to have a schema
+          var schema = cfg.contains[key];
+          expect(schema).toHaveProperty('id');
+          expect(schema).toHaveProperty('$schema');
+          expect(schema).toHaveProperty('title');
+          expect(schema).toHaveProperty('description');
+          expect(schema).toHaveProperty('x-layout');
+          expect(schema).toHaveProperty('type');
+          expect(schema).toHaveProperty('version');
+          expect(schema).toHaveProperty('properties');
+          expect(schema).toHaveProperty('required');
+          expect(schema.id).toEqual(key); // should be same id as the key
+          // should expect a x-layout having value "component-item"
+          expect(schema['x-layout']).toEqual('component-item');
+        }
+      }
+    }
+  }];
+};
+function uuidv4() {
+  // random string generator
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0;
+    var v = c === 'x' ? r : r & 0x3 | 0x8;
+    return v.toString(16);
+  });
+}
+function testEventSequence(componentManagerInstance, module_name, event_name, event_data, trigger_name, callback) {
+  var test_name = uuidv4();
+  componentManagerInstance.getEventManager().register(test_name, {
+    result: {
+      schema: {},
+      handler: callback
+    }
+  }, {}, {}); // event and component info not used in test
+  componentManagerInstance.getEventManager().watch([{
+    component: {
+      id: test_name,
+      event: 'result'
+    },
+    trigger: {
+      id: module_name,
+      action: event_name
+    },
+    transform: function transform(data) {
+      return data;
+    }
+  }, {
+    component: {
+      id: module_name,
+      event: trigger_name
+    },
+    trigger: {
+      id: test_name,
+      action: 'result'
+    },
+    transform: function transform(data) {
+      return data;
+    }
+  }]);
+  componentManagerInstance.getEventManager().addEvent(test_name, 'result', event_data, {});
+}
+var TestUtil = {
+  createComponentClassTests: createComponentClassTests,
+  createComponentRegisterTests: createComponentRegisterTests,
+  testEventSequence: testEventSequence
+};
+
+exports.createComponentClassTests = createComponentClassTests;
+exports.createComponentRegisterTests = createComponentRegisterTests;
+exports["default"] = TestUtil;
+exports.testEventSequence = testEventSequence;
 //# sourceMappingURL=TestUtil.js.map

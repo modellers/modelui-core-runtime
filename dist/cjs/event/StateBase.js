@@ -1,2 +1,1116 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e,t,r,n=require("../_rollupPluginBabelHelpers-aae655da.js"),o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},i=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),a="undefined"!=typeof Symbol?Symbol("immer-nothing"):(r=!0,(t="immer-nothing")in(e={})?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e),s="undefined"!=typeof Symbol?Symbol("immer-state"):"__$immer_state";function u(e){return!!e&&!!e[s]}function f(e){if(!e)return!1;if("object"!==(void 0===e?"undefined":o(e)))return!1;if(Array.isArray(e))return!0;var t=Object.getPrototypeOf(e);return null===t||t===Object.prototype}var c=Object.assign||function(e,t){for(var r in t)d(t,r)&&(e[r]=t[r]);return e};function p(e){if(Array.isArray(e))return e.slice();var t=void 0===e.__proto__?Object.create(null):{};return c(t,e)}function l(e,t){if(Array.isArray(e))for(var r=0;r<e.length;r++)t(r,e[r],e);else for(var n in e)t(n,e[n],e)}function d(e,t){return Object.prototype.hasOwnProperty.call(e,t)}function h(e,t){return e===t?0!==e||1/e==1/t:e!=e&&t!=t}function v(e,t,r,n){Array.isArray(e.base)?function(e,t,r,n){for(var o=e.base,i=e.copy,a=e.assigned,s=Math.min(o.length,i.length),u=0;u<s;u++)if(a[u]&&o[u]!==i[u]){var f=t.concat(u);r.push({op:"replace",path:f,value:i[u]}),n.push({op:"replace",path:f,value:o[u]})}if(s<i.length){for(var c=s;c<i.length;c++)r.push({op:"add",path:t.concat(c),value:i[c]});n.push({op:"replace",path:t.concat("length"),value:o.length})}else if(s<o.length){r.push({op:"replace",path:t.concat("length"),value:i.length});for(var p=s;p<o.length;p++)n.push({op:"add",path:t.concat(p),value:o[p]})}}(e,t,r,n):function(e,t,r,n){var o=e.base,i=e.copy;l(e.assigned,(function(e,a){var s=o[e],u=i[e],f=a?e in o?"replace":"add":"remove";if(s!==o||"replace"!==f){var c=t.concat(e);r.push("remove"===f?{op:f,path:c}:{op:f,path:c,value:u}),n.push("add"===f?{op:"remove",path:c}:"remove"===f?{op:"add",path:c,value:s}:{op:"replace",path:c,value:s})}}))}(e,t,r,n)}var y={},g=[],b=function(){return g[g.length-1]};function m(e,t){var r=void 0;if(u(e)){var n=e[s];n.finalizing=!0,r=p(n.draft),n.finalizing=!1}else r=p(e);l(e,(function(e){Object.defineProperty(r,""+e,function(e){return y[e]||(y[e]={configurable:!0,enumerable:!0,get:function(){return function(e,t){O(e);var r=k(e)[t];if(!e.finalizing&&r===e.base[t]&&f(r))return S(e),e.copy[t]=m(r,e);return r}(this[s],e)},set:function(t){!function(e,t,r){if(O(e),e.assigned[t]=!0,!e.modified){if(h(k(e)[t],r))return;_(e),S(e)}e.copy[t]=r}(this[s],e,t)}})}(""+e))}));var o={scope:t?t.scope:b(),modified:!1,finalizing:!1,finalized:!1,assigned:{},parent:t,base:e,draft:r,copy:null,revoke:w,revoked:!1};return function(e,t,r){Object.defineProperty(e,t,{value:r,enumerable:!1,writable:!0})}(r,s,o),o.scope.push(o),r}function w(){this.revoked=!0}function k(e){return e.copy||e.base}function _(e){e.modified||(e.modified=!0,e.parent&&_(e.parent))}function S(e){e.copy||(e.copy=p(e.base))}function O(e){if(!0===e.revoked)throw new Error("Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? "+JSON.stringify(e.copy||e.base))}function j(e){if(e&&"object"===(void 0===e?"undefined":o(e))){var t=e[s];if(t){var r=t.base,n=t.draft,i=t.assigned;if(Array.isArray(e)){if(z(t)){if(_(t),i.length=!0,n.length<r.length)for(var a=n.length;a<r.length;a++)i[a]=!1;else for(var u=r.length;u<n.length;u++)i[u]=!0;for(var f=0;f<n.length;f++)void 0===i[f]&&j(n[f])}}else Object.keys(n).forEach((function(e){void 0!==r[e]||d(r,e)?i[e]||j(n[e]):(i[e]=!0,_(t))})),Object.keys(r).forEach((function(e){void 0!==n[e]||d(n,e)||(i[e]=!1,_(t))}))}}}function A(e){for(var t=e.base,r=e.draft,n=Object.keys(r),o=n.length-1;o>=0;o--)if(void 0===t[n[o]]&&!d(t,n[o]))return!0;return n.length!==Object.keys(t).length}function z(e){var t=e.draft;if(t.length!==e.base.length)return!0;var r=Object.getOwnPropertyDescriptor(t,t.length-1);return!(!r||r.get)}var E=Object.freeze({scopes:g,currentScope:b,willFinalize:function(e,t,r){var n=b();n.forEach((function(e){return e.finalizing=!0})),void 0!==e&&e!==t||(r&&j(t),function(e){for(var t=e.length-1;t>=0;t--){var r=e[t];!1===r.modified&&(Array.isArray(r.base)?z(r)&&_(r):A(r)&&_(r))}}(n))},createDraft:m}),P=[],M=function(){return P[P.length-1]};function x(e,t){var r={scope:t?t.scope:M(),modified:!1,finalized:!1,assigned:{},parent:t,base:e,draft:null,drafts:{},copy:null,revoke:null},n=Array.isArray(e)?Proxy.revocable([r],D):Proxy.revocable(r,C),o=n.revoke,i=n.proxy;return r.draft=i,r.revoke=o,r.scope.push(r),i}var C={get:function(e,t){if(t===s)return e;var r=e.drafts;if(!e.modified&&d(r,t))return r[t];var n=I(e)[t];if(e.finalized||!f(n))return n;if(e.modified){if(n!==e.base[t])return n;r=e.copy}return r[t]=x(n,e)},has:function(e,t){return t in I(e)},ownKeys:function(e){return Reflect.ownKeys(I(e))},set:function(e,t,r){if(!e.modified){if(r?h(e.base[t],r)||r===e.drafts[t]:h(e.base[t],r)&&t in e.base)return!0;F(e)}return e.assigned[t]=!0,e.copy[t]=r,!0},deleteProperty:function(e,t){(void 0!==e.base[t]||t in e.base)&&(e.assigned[t]=!1,F(e));e.copy&&delete e.copy[t];return!0},getOwnPropertyDescriptor:function(e,t){var r=e.modified?e.copy:d(e.drafts,t)?e.drafts:e.base,n=Reflect.getOwnPropertyDescriptor(r,t);!n||Array.isArray(r)&&"length"===t||(n.configurable=!0);return n},defineProperty:function(){throw new Error("Immer does not support defining properties on draft objects.")},setPrototypeOf:function(){throw new Error("Immer does not support `setPrototypeOf()`.")}},D={};function I(e){return e.copy||e.base}function F(e){e.modified||(e.modified=!0,e.copy=c(p(e.base),e.drafts),e.drafts=null,e.parent&&F(e.parent))}l(C,(function(e,t){D[e]=function(){return arguments[0]=arguments[0][0],t.apply(this,arguments)}})),D.deleteProperty=function(e,t){if(isNaN(parseInt(t)))throw new Error("Immer does not support deleting properties from arrays: "+t);return C.deleteProperty.call(this,e[0],t)},D.set=function(e,t,r){if("length"!==t&&isNaN(parseInt(t)))throw new Error("Immer does not support setting non-numeric properties on arrays: "+t);return C.set.call(this,e[0],t,r)};var N=Object.freeze({scopes:P,currentScope:M,willFinalize:function(){},createDraft:x});var T={useProxies:"undefined"!=typeof Proxy&&"undefined"!=typeof Reflect,autoFreeze:"undefined"!=typeof process?"production"!==process.env.NODE_ENV:"verifyMinified"===function(){}.name,onAssign:null,onDelete:null,onCopy:null},V=function(){function e(t){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),c(this,T,t),this.setUseProxies(this.useProxies),this.produce=this.produce.bind(this)}return i(e,[{key:"produce",value:function(e,t,r){var n=this;if("function"==typeof e&&"function"!=typeof t){var o=t;return t=e,function(){for(var e=arguments.length,r=Array(e>1?e-1:0),i=1;i<e;i++)r[i-1]=arguments[i];var a=arguments.length>0&&void 0!==arguments[0]?arguments[0]:o;return n.produce(a,(function(e){var n;return(n=t).call.apply(n,[e,e].concat(r))}))}}if("function"!=typeof t)throw new Error("if first argument is not a function, the second argument to produce should be a function");if(void 0!==r&&"function"!=typeof r)throw new Error("the third argument of a producer should not be set or a function");var i=void 0;if(f(e))if(u(e)){if(void 0===(i=t.call(e,e)))return e}else{this.scopes.push([]);var c=this.createDraft(e);try{i=t.call(c,c),this.willFinalize(i,c,!!r);var p=r&&[],l=r&&[];if(void 0===i||i===c)i=this.finalize(c,[],p,l);else{if(c[s].modified)throw new Error("An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.");f(i)&&(i=this.finalize(i)),r&&(p.push({op:"replace",path:[],value:i}),l.push({op:"replace",path:[],value:e}))}}finally{this.currentScope().forEach((function(e){return e.revoke()})),this.scopes.pop()}r&&r(p,l)}else if(void 0===(i=t(e)))return e;return i===a?void 0:i}},{key:"setAutoFreeze",value:function(e){this.autoFreeze=e}},{key:"setUseProxies",value:function(e){this.useProxies=e,c(this,e?N:E)}},{key:"finalize",value:function(e,t,r,n){var o=e[s];if(!o)return Object.isFrozen(e)?e:this.finalizeTree(e);if(o.scope!==this.currentScope())return e;if(!o.modified)return o.base;if(!o.finalized){if(o.finalized=!0,this.finalizeTree(o.draft,t,r,n),this.onDelete){var i=o.assigned;for(var a in i)i[a]||this.onDelete(o,a)}this.onCopy&&this.onCopy(o),this.autoFreeze&&1===this.scopes.length&&Object.freeze(o.copy),r&&v(o,t,r,n)}return o.copy}},{key:"finalizeTree",value:function(e,t,r,n){var o=this,i=e[s];i&&(e=this.useProxies?i.copy:i.copy=p(i.draft));var a=this.onAssign;return l(e,(function s(c,p,d){var v=!!i&&d===e;if(u(p)){if(d[c]=p=r&&v&&!i.assigned[c]?o.finalize(p,t.concat(c),r,n):o.finalize(p),v&&p===i.base[c])return}else{if(v&&h(p,i.base[c]))return;f(p)&&!Object.isFrozen(p)&&l(p,s)}v&&a&&a(i,c,p)})),e}}]),e}(),R=(new V).produce;R((function(e,t){for(var r=0;r<t.length;r++){var n=t[r],i=n.path;if(0===i.length&&"replace"===n.op)e=n.value;else{for(var a=e,s=0;s<i.length-1;s++)if(!(a=a[i[s]])||"object"!==(void 0===a?"undefined":o(a)))throw new Error("Cannot apply patch, path doesn't resolve: "+i.join("/"));var u=i[i.length-1];switch(n.op){case"replace":case"add":a[u]=n.value;break;case"remove":if(Array.isArray(a)){if(u!==a.length-1)throw new Error("Only the last index of an array can be removed, index: "+u+", length: "+a.length);a.length-=1}else delete a[u];break;default:throw new Error("Unsupported patch operation: "+n.op)}}}return e}));var U=function(){function e(){n._classCallCheck(this,e),n._defineProperty(this,"state",{}),n._defineProperty(this,"mount",null)}return n._createClass(e,[{key:"__updateObject",value:function(e,t){for(var r=0,o=Object.entries(t);r<o.length;r++){var i=n._slicedToArray(o[r],2),a=i[0],s=i[1];e.hasOwnProperty(a)&&n._typeof(s)===n._typeof(e[a])&&(["string","number","boolean"].includes(n._typeof(s))||Array.isArray(s)||"[object Date]"===Object.prototype.toString.call(s)?e[a]=s:"object"===n._typeof(s)&&this.__updateObject(e[a],s))}}},{key:"getState",value:function(){return this.state}},{key:"setState",value:function(e,t){this.state=e,t||this.mount&&this.mount.setState&&this.mount.setState(e)}},{key:"getActionState",value:function(e,t){this.mount&&this.mount.getActionState?this.mount.getActionState(e,t):t()}},{key:"alterState",value:function(e,t){var r=this;if(void 0===e)return this.state;if("object"===n._typeof(e)){var o=R(this.state,(function(t){r.__updateObject(t,e)}));return this.setState(o,t),o}var i=R(this.state,e);return this.setState(i,t),i}},{key:"doMount",value:function(e){this.mount=e}},{key:"unMount",value:function(e){this.mount=null}},{key:"updateView",value:function(e,t,r,n){return this.mount&&this.mount.updateView&&this.mount.updateView(e,t,r,n),!0}}]),e}(),K=function(e){n._inherits(r,e);var t=n._createSuper(r);function r(e){var o;if(n._classCallCheck(this,r),o=t.call(this,e),n._defineProperty(n._assertThisInitialized(o),"updateView",(function(e,t,r,n){return!0})),o.props=e,!o.props.manager)throw"Manager was not provided through props for component "+o.props.id;return o.eventManager=o.props.manager.getEventManager(),o}return n._createClass(r,[{key:"triggerEvent",value:function(e,t,r){this.props.manager.getEventManager().addEvent(this.props.id,e,t,r)}},{key:"triggerAction",value:function(e,t,r){this.props.manager.getEventManager().addAction(this.props.id,e,t,null,r)}},{key:"register",value:function(e,t,r){this.props.manager.getEventManager().register(this.props.id,e,t,r)}},{key:"setInstanceState",value:function(e){this.stateManager&&this.stateManager.setState(e)}}]),r}(U),L=function(e){n._inherits(r,e);var t=n._createSuper(r);function r(e){var o;if(n._classCallCheck(this,r),o=t.call(this,e),n._defineProperty(n._assertThisInitialized(o),"updateView",(function(e,t,r,n){return!0})),o.props=e,!o.props.manager)throw"Manager was not provided through props for component "+o.props.id;return o.eventManager=o.props.manager.getEventManager(),o}return n._createClass(r,[{key:"triggerEvent",value:function(e,t,r){this.props.manager.getEventManager().addEvent(this.props.id,e,t,r)}},{key:"triggerAction",value:function(e,t,r){this.props.manager.getEventManager().addAction(this.props.id,e,t,null,r)}},{key:"register",value:function(e,t,r){this.props.manager.getEventManager().register(this.props.id,e,t,r)}},{key:"setInstanceState",value:function(e){this.stateManager&&this.stateManager.setState(e)}}]),r}(U),q={StateInstance:U,StateLess:K,StateFull:L};exports.StateFull=L,exports.StateInstance=U,exports.StateLess=K,exports.default=q;
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var _rollupPluginBabelHelpers = require('../_rollupPluginBabelHelpers-aae655da.js');
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var NOTHING = typeof Symbol !== "undefined" ? Symbol("immer-nothing") : defineProperty({}, "immer-nothing", true);
+
+var DRAFT_STATE = typeof Symbol !== "undefined" ? Symbol("immer-state") : "__$immer_state";
+
+function isDraft(value) {
+    return !!value && !!value[DRAFT_STATE];
+}
+
+function isDraftable(value) {
+    if (!value) return false;
+    if ((typeof value === "undefined" ? "undefined" : _typeof(value)) !== "object") return false;
+    if (Array.isArray(value)) return true;
+    var proto = Object.getPrototypeOf(value);
+    return proto === null || proto === Object.prototype;
+}
+
+var assign = Object.assign || function assign(target, value) {
+    for (var key in value) {
+        if (has(value, key)) {
+            target[key] = value[key];
+        }
+    }
+    return target;
+};
+
+function shallowCopy(value) {
+    if (Array.isArray(value)) return value.slice();
+    var target = value.__proto__ === undefined ? Object.create(null) : {};
+    return assign(target, value);
+}
+
+function each(value, cb) {
+    if (Array.isArray(value)) {
+        for (var i = 0; i < value.length; i++) {
+            cb(i, value[i], value);
+        }
+    } else {
+        for (var key in value) {
+            cb(key, value[key], value);
+        }
+    }
+}
+
+function has(thing, prop) {
+    return Object.prototype.hasOwnProperty.call(thing, prop);
+}
+
+function is(x, y) {
+    // From: https://github.com/facebook/fbjs/blob/c69904a511b900266935168223063dd8772dfc40/packages/fbjs/src/core/shallowEqual.js
+    if (x === y) {
+        return x !== 0 || 1 / x === 1 / y;
+    } else {
+        return x !== x && y !== y;
+    }
+}
+
+function generatePatches(state, basePath, patches, inversePatches) {
+    Array.isArray(state.base) ? generateArrayPatches(state, basePath, patches, inversePatches) : generateObjectPatches(state, basePath, patches, inversePatches);
+}
+
+function generateArrayPatches(state, basePath, patches, inversePatches) {
+    var base = state.base,
+        copy = state.copy,
+        assigned = state.assigned;
+
+    var minLength = Math.min(base.length, copy.length);
+
+    // Look for replaced indices.
+    for (var i = 0; i < minLength; i++) {
+        if (assigned[i] && base[i] !== copy[i]) {
+            var path = basePath.concat(i);
+            patches.push({ op: "replace", path: path, value: copy[i] });
+            inversePatches.push({ op: "replace", path: path, value: base[i] });
+        }
+    }
+
+    // Did the array expand?
+    if (minLength < copy.length) {
+        for (var _i = minLength; _i < copy.length; _i++) {
+            patches.push({
+                op: "add",
+                path: basePath.concat(_i),
+                value: copy[_i]
+            });
+        }
+        inversePatches.push({
+            op: "replace",
+            path: basePath.concat("length"),
+            value: base.length
+        });
+    }
+
+    // ...or did it shrink?
+    else if (minLength < base.length) {
+            patches.push({
+                op: "replace",
+                path: basePath.concat("length"),
+                value: copy.length
+            });
+            for (var _i2 = minLength; _i2 < base.length; _i2++) {
+                inversePatches.push({
+                    op: "add",
+                    path: basePath.concat(_i2),
+                    value: base[_i2]
+                });
+            }
+        }
+}
+
+function generateObjectPatches(state, basePath, patches, inversePatches) {
+    var base = state.base,
+        copy = state.copy;
+
+    each(state.assigned, function (key, assignedValue) {
+        var origValue = base[key];
+        var value = copy[key];
+        var op = !assignedValue ? "remove" : key in base ? "replace" : "add";
+        if (origValue === base && op === "replace") return;
+        var path = basePath.concat(key);
+        patches.push(op === "remove" ? { op: op, path: path } : { op: op, path: path, value: value });
+        inversePatches.push(op === "add" ? { op: "remove", path: path } : op === "remove" ? { op: "add", path: path, value: origValue } : { op: "replace", path: path, value: origValue });
+    });
+}
+
+function applyPatches(draft, patches) {
+    for (var i = 0; i < patches.length; i++) {
+        var patch = patches[i];
+        var path = patch.path;
+
+        if (path.length === 0 && patch.op === "replace") {
+            draft = patch.value;
+        } else {
+            var base = draft;
+            for (var _i3 = 0; _i3 < path.length - 1; _i3++) {
+                base = base[path[_i3]];
+                if (!base || (typeof base === "undefined" ? "undefined" : _typeof(base)) !== "object") throw new Error("Cannot apply patch, path doesn't resolve: " + path.join("/")); // prettier-ignore
+            }
+            var key = path[path.length - 1];
+            switch (patch.op) {
+                case "replace":
+                case "add":
+                    // TODO: add support is not extensive, it does not support insertion or `-` atm!
+                    base[key] = patch.value;
+                    break;
+                case "remove":
+                    if (Array.isArray(base)) {
+                        if (key !== base.length - 1) throw new Error("Only the last index of an array can be removed, index: " + key + ", length: " + base.length); // prettier-ignore
+                        base.length -= 1;
+                    } else {
+                        delete base[key];
+                    }
+                    break;
+                default:
+                    throw new Error("Unsupported patch operation: " + patch.op);
+            }
+        }
+    }
+    return draft;
+}
+
+// @ts-check
+
+var descriptors = {};
+
+// For nested produce calls:
+var scopes = [];
+var currentScope = function currentScope() {
+    return scopes[scopes.length - 1];
+};
+
+function willFinalize(result, baseDraft, needPatches) {
+    var scope = currentScope();
+    scope.forEach(function (state) {
+        return state.finalizing = true;
+    });
+    if (result === undefined || result === baseDraft) {
+        if (needPatches) markChangesRecursively(baseDraft);
+        // This is faster when we don't care about which attributes changed.
+        markChangesSweep(scope);
+    }
+}
+
+function createDraft(base, parent) {
+    var draft = void 0;
+    if (isDraft(base)) {
+        var _state = base[DRAFT_STATE];
+        // Avoid creating new drafts when copying.
+        _state.finalizing = true;
+        draft = shallowCopy(_state.draft);
+        _state.finalizing = false;
+    } else {
+        draft = shallowCopy(base);
+    }
+    each(base, function (prop) {
+        Object.defineProperty(draft, "" + prop, createPropertyProxy("" + prop));
+    });
+
+    // See "proxy.js" for property documentation.
+    var state = {
+        scope: parent ? parent.scope : currentScope(),
+        modified: false,
+        finalizing: false, // es5 only
+        finalized: false,
+        assigned: {},
+        parent: parent,
+        base: base,
+        draft: draft,
+        copy: null,
+        revoke: revoke,
+        revoked: false // es5 only
+    };
+
+    createHiddenProperty(draft, DRAFT_STATE, state);
+    state.scope.push(state);
+    return draft;
+}
+
+function revoke() {
+    this.revoked = true;
+}
+
+function source(state) {
+    return state.copy || state.base;
+}
+
+function _get(state, prop) {
+    assertUnrevoked(state);
+    var value = source(state)[prop];
+    // Drafts are only created for proxyable values that exist in the base state.
+    if (!state.finalizing && value === state.base[prop] && isDraftable(value)) {
+        prepareCopy(state);
+        return state.copy[prop] = createDraft(value, state);
+    }
+    return value;
+}
+
+function _set(state, prop, value) {
+    assertUnrevoked(state);
+    state.assigned[prop] = true;
+    if (!state.modified) {
+        if (is(source(state)[prop], value)) return;
+        markChanged(state);
+        prepareCopy(state);
+    }
+    state.copy[prop] = value;
+}
+
+function markChanged(state) {
+    if (!state.modified) {
+        state.modified = true;
+        if (state.parent) markChanged(state.parent);
+    }
+}
+
+function prepareCopy(state) {
+    if (!state.copy) state.copy = shallowCopy(state.base);
+}
+
+function createPropertyProxy(prop) {
+    return descriptors[prop] || (descriptors[prop] = {
+        configurable: true,
+        enumerable: true,
+        get: function get$$1() {
+            return _get(this[DRAFT_STATE], prop);
+        },
+        set: function set$$1(value) {
+            _set(this[DRAFT_STATE], prop, value);
+        }
+    });
+}
+
+function assertUnrevoked(state) {
+    if (state.revoked === true) throw new Error("Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? " + JSON.stringify(state.copy || state.base));
+}
+
+// This looks expensive, but only proxies are visited, and only objects without known changes are scanned.
+function markChangesSweep(scope) {
+    // The natural order of drafts in the `scope` array is based on when they
+    // were accessed. By processing drafts in reverse natural order, we have a
+    // better chance of processing leaf nodes first. When a leaf node is known to
+    // have changed, we can avoid any traversal of its ancestor nodes.
+    for (var i = scope.length - 1; i >= 0; i--) {
+        var state = scope[i];
+        if (state.modified === false) {
+            if (Array.isArray(state.base)) {
+                if (hasArrayChanges(state)) markChanged(state);
+            } else if (hasObjectChanges(state)) markChanged(state);
+        }
+    }
+}
+
+function markChangesRecursively(object) {
+    if (!object || (typeof object === "undefined" ? "undefined" : _typeof(object)) !== "object") return;
+    var state = object[DRAFT_STATE];
+    if (!state) return;
+    var base = state.base,
+        draft = state.draft,
+        assigned = state.assigned;
+
+    if (!Array.isArray(object)) {
+        // Look for added keys.
+        Object.keys(draft).forEach(function (key) {
+            // The `undefined` check is a fast path for pre-existing keys.
+            if (base[key] === undefined && !has(base, key)) {
+                assigned[key] = true;
+                markChanged(state);
+            } else if (!assigned[key]) {
+                // Only untouched properties trigger recursion.
+                markChangesRecursively(draft[key]);
+            }
+        });
+        // Look for removed keys.
+        Object.keys(base).forEach(function (key) {
+            // The `undefined` check is a fast path for pre-existing keys.
+            if (draft[key] === undefined && !has(draft, key)) {
+                assigned[key] = false;
+                markChanged(state);
+            }
+        });
+    } else if (hasArrayChanges(state)) {
+        markChanged(state);
+        assigned.length = true;
+        if (draft.length < base.length) {
+            for (var i = draft.length; i < base.length; i++) {
+                assigned[i] = false;
+            }
+        } else {
+            for (var _i = base.length; _i < draft.length; _i++) {
+                assigned[_i] = true;
+            }
+        }
+        for (var _i2 = 0; _i2 < draft.length; _i2++) {
+            // Only untouched indices trigger recursion.
+            if (assigned[_i2] === undefined) markChangesRecursively(draft[_i2]);
+        }
+    }
+}
+
+function hasObjectChanges(state) {
+    var base = state.base,
+        draft = state.draft;
+
+    // Search for added keys. Start at the back, because non-numeric keys
+    // are ordered by time of definition on the object.
+
+    var keys = Object.keys(draft);
+    for (var i = keys.length - 1; i >= 0; i--) {
+        // The `undefined` check is a fast path for pre-existing keys.
+        if (base[keys[i]] === undefined && !has(base, keys[i])) {
+            return true;
+        }
+    }
+
+    // Since no keys have been added, we can compare lengths to know if an
+    // object has been deleted.
+    return keys.length !== Object.keys(base).length;
+}
+
+function hasArrayChanges(state) {
+    var draft = state.draft;
+
+    if (draft.length !== state.base.length) return true;
+    // See #116
+    // If we first shorten the length, our array interceptors will be removed.
+    // If after that new items are added, result in the same original length,
+    // those last items will have no intercepting property.
+    // So if there is no own descriptor on the last position, we know that items were removed and added
+    // N.B.: splice, unshift, etc only shift values around, but not prop descriptors, so we only have to check
+    // the last one
+    var descriptor = Object.getOwnPropertyDescriptor(draft, draft.length - 1);
+    // descriptor can be null, but only for newly created sparse arrays, eg. new Array(10)
+    if (descriptor && !descriptor.get) return true;
+    // For all other cases, we don't have to compare, as they would have been picked up by the index setters
+    return false;
+}
+
+function createHiddenProperty(target, prop, value) {
+    Object.defineProperty(target, prop, {
+        value: value,
+        enumerable: false,
+        writable: true
+    });
+}
+
+
+
+var legacyProxy = Object.freeze({
+	scopes: scopes,
+	currentScope: currentScope,
+	willFinalize: willFinalize,
+	createDraft: createDraft
+});
+
+// @ts-check
+
+// For nested produce calls:
+var scopes$1 = [];
+var currentScope$1 = function currentScope() {
+    return scopes$1[scopes$1.length - 1];
+};
+
+// Do nothing before being finalized.
+function willFinalize$1() {}
+
+function createDraft$1(base, parent) {
+    var state = {
+        // Track which produce call this is associated with.
+        scope: parent ? parent.scope : currentScope$1(),
+        // True for both shallow and deep changes.
+        modified: false,
+        // Used during finalization.
+        finalized: false,
+        // Track which properties have been assigned (true) or deleted (false).
+        assigned: {},
+        // The parent draft state.
+        parent: parent,
+        // The base state.
+        base: base,
+        // The base proxy.
+        draft: null,
+        // Any property proxies.
+        drafts: {},
+        // The base copy with any updated values.
+        copy: null,
+        // Called by the `produce` function.
+        revoke: null
+    };
+
+    var _ref = Array.isArray(base) ? Proxy.revocable([state], arrayTraps) : Proxy.revocable(state, objectTraps),
+        revoke = _ref.revoke,
+        proxy = _ref.proxy;
+
+    state.draft = proxy;
+    state.revoke = revoke;
+
+    state.scope.push(state);
+    return proxy;
+}
+
+var objectTraps = {
+    get: get$1,
+    has: function has$$1(target, prop) {
+        return prop in source$1(target);
+    },
+    ownKeys: function ownKeys(target) {
+        return Reflect.ownKeys(source$1(target));
+    },
+
+    set: set$1,
+    deleteProperty: deleteProperty,
+    getOwnPropertyDescriptor: getOwnPropertyDescriptor,
+    defineProperty: defineProperty$1,
+    setPrototypeOf: function setPrototypeOf() {
+        throw new Error("Immer does not support `setPrototypeOf()`.");
+    }
+};
+
+var arrayTraps = {};
+each(objectTraps, function (key, fn) {
+    arrayTraps[key] = function () {
+        arguments[0] = arguments[0][0];
+        return fn.apply(this, arguments);
+    };
+});
+arrayTraps.deleteProperty = function (state, prop) {
+    if (isNaN(parseInt(prop))) throw new Error("Immer does not support deleting properties from arrays: " + prop);
+    return objectTraps.deleteProperty.call(this, state[0], prop);
+};
+arrayTraps.set = function (state, prop, value) {
+    if (prop !== "length" && isNaN(parseInt(prop))) throw new Error("Immer does not support setting non-numeric properties on arrays: " + prop);
+    return objectTraps.set.call(this, state[0], prop, value);
+};
+
+function source$1(state) {
+    return state.copy || state.base;
+}
+
+function get$1(state, prop) {
+    if (prop === DRAFT_STATE) return state;
+    var drafts = state.drafts;
+
+    // Check for existing draft in unmodified state.
+
+    if (!state.modified && has(drafts, prop)) {
+        return drafts[prop];
+    }
+
+    var value = source$1(state)[prop];
+    if (state.finalized || !isDraftable(value)) return value;
+
+    // Check for existing draft in modified state.
+    if (state.modified) {
+        // Assigned values are never drafted. This catches any drafts we created, too.
+        if (value !== state.base[prop]) return value;
+        // Store drafts on the copy (when one exists).
+        drafts = state.copy;
+    }
+
+    return drafts[prop] = createDraft$1(value, state);
+}
+
+function set$1(state, prop, value) {
+    if (!state.modified) {
+        // Optimize based on value's truthiness. Truthy values are guaranteed to
+        // never be undefined, so we can avoid the `in` operator. Lastly, truthy
+        // values may be drafts, but falsy values are never drafts.
+        var isUnchanged = value ? is(state.base[prop], value) || value === state.drafts[prop] : is(state.base[prop], value) && prop in state.base;
+        if (isUnchanged) return true;
+        markChanged$1(state);
+    }
+    state.assigned[prop] = true;
+    state.copy[prop] = value;
+    return true;
+}
+
+function deleteProperty(state, prop) {
+    // The `undefined` check is a fast path for pre-existing keys.
+    if (state.base[prop] !== undefined || prop in state.base) {
+        state.assigned[prop] = false;
+        markChanged$1(state);
+    }
+    if (state.copy) delete state.copy[prop];
+    return true;
+}
+
+function getOwnPropertyDescriptor(state, prop) {
+    var owner = state.modified ? state.copy : has(state.drafts, prop) ? state.drafts : state.base;
+    var descriptor = Reflect.getOwnPropertyDescriptor(owner, prop);
+    if (descriptor && !(Array.isArray(owner) && prop === "length")) descriptor.configurable = true;
+    return descriptor;
+}
+
+function defineProperty$1() {
+    throw new Error("Immer does not support defining properties on draft objects.");
+}
+
+function markChanged$1(state) {
+    if (!state.modified) {
+        state.modified = true;
+        state.copy = assign(shallowCopy(state.base), state.drafts);
+        state.drafts = null;
+        if (state.parent) markChanged$1(state.parent);
+    }
+}
+
+var modernProxy = Object.freeze({
+	scopes: scopes$1,
+	currentScope: currentScope$1,
+	willFinalize: willFinalize$1,
+	createDraft: createDraft$1
+});
+
+function verifyMinified() {}
+
+var configDefaults = {
+    useProxies: typeof Proxy !== "undefined" && typeof Reflect !== "undefined",
+    autoFreeze: typeof process !== "undefined" ? process.env.NODE_ENV !== "production" : verifyMinified.name === "verifyMinified",
+    onAssign: null,
+    onDelete: null,
+    onCopy: null
+};
+
+var Immer = function () {
+    function Immer(config) {
+        classCallCheck(this, Immer);
+
+        assign(this, configDefaults, config);
+        this.setUseProxies(this.useProxies);
+        this.produce = this.produce.bind(this);
+    }
+
+    createClass(Immer, [{
+        key: "produce",
+        value: function produce(base, recipe, patchListener) {
+            var _this = this;
+
+            // curried invocation
+            if (typeof base === "function" && typeof recipe !== "function") {
+                var defaultBase = recipe;
+                recipe = base;
+
+                // prettier-ignore
+                return function () {
+                    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                        args[_key - 1] = arguments[_key];
+                    }
+
+                    var base = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultBase;
+                    return _this.produce(base, function (draft) {
+                        var _recipe;
+
+                        return (_recipe = recipe).call.apply(_recipe, [draft, draft].concat(args));
+                    });
+                };
+            }
+
+            // prettier-ignore
+            {
+                if (typeof recipe !== "function") throw new Error("if first argument is not a function, the second argument to produce should be a function");
+                if (patchListener !== undefined && typeof patchListener !== "function") throw new Error("the third argument of a producer should not be set or a function");
+            }
+
+            var result = void 0;
+            // Only create proxies for plain objects/arrays.
+            if (!isDraftable(base)) {
+                result = recipe(base);
+                if (result === undefined) return base;
+            }
+            // See #100, don't nest producers
+            else if (isDraft(base)) {
+                    result = recipe.call(base, base);
+                    if (result === undefined) return base;
+                }
+                // The given value must be proxied.
+                else {
+                        this.scopes.push([]);
+                        var baseDraft = this.createDraft(base);
+                        try {
+                            result = recipe.call(baseDraft, baseDraft);
+                            this.willFinalize(result, baseDraft, !!patchListener);
+
+                            // Never generate patches when no listener exists.
+                            var patches = patchListener && [],
+                                inversePatches = patchListener && [];
+
+                            // Finalize the modified draft...
+                            if (result === undefined || result === baseDraft) {
+                                result = this.finalize(baseDraft, [], patches, inversePatches);
+                            }
+                            // ...or use a replacement value.
+                            else {
+                                    // Users must never modify the draft _and_ return something else.
+                                    if (baseDraft[DRAFT_STATE].modified) throw new Error("An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft."); // prettier-ignore
+
+                                    // Finalize the replacement in case it contains (or is) a subset of the draft.
+                                    if (isDraftable(result)) result = this.finalize(result);
+
+                                    if (patchListener) {
+                                        patches.push({
+                                            op: "replace",
+                                            path: [],
+                                            value: result
+                                        });
+                                        inversePatches.push({
+                                            op: "replace",
+                                            path: [],
+                                            value: base
+                                        });
+                                    }
+                                }
+                        } finally {
+                            this.currentScope().forEach(function (state) {
+                                return state.revoke();
+                            });
+                            this.scopes.pop();
+                        }
+                        patchListener && patchListener(patches, inversePatches);
+                    }
+            // Normalize the result.
+            return result === NOTHING ? undefined : result;
+        }
+    }, {
+        key: "setAutoFreeze",
+        value: function setAutoFreeze(value) {
+            this.autoFreeze = value;
+        }
+    }, {
+        key: "setUseProxies",
+        value: function setUseProxies(value) {
+            this.useProxies = value;
+            assign(this, value ? modernProxy : legacyProxy);
+        }
+        /**
+         * @internal
+         * Finalize a draft, returning either the unmodified base state or a modified
+         * copy of the base state.
+         */
+
+    }, {
+        key: "finalize",
+        value: function finalize(draft, path, patches, inversePatches) {
+            var state = draft[DRAFT_STATE];
+            if (!state) {
+                if (Object.isFrozen(draft)) return draft;
+                return this.finalizeTree(draft);
+            }
+            // Never finalize drafts owned by an outer scope.
+            if (state.scope !== this.currentScope()) {
+                return draft;
+            }
+            if (!state.modified) return state.base;
+            if (!state.finalized) {
+                state.finalized = true;
+                this.finalizeTree(state.draft, path, patches, inversePatches);
+                if (this.onDelete) {
+                    var assigned = state.assigned;
+
+                    for (var prop in assigned) {
+                        assigned[prop] || this.onDelete(state, prop);
+                    }
+                }
+                if (this.onCopy) this.onCopy(state);
+
+                // Nested producers must never auto-freeze their result,
+                // because it may contain drafts from parent producers.
+                if (this.autoFreeze && this.scopes.length === 1) {
+                    Object.freeze(state.copy);
+                }
+
+                if (patches) generatePatches(state, path, patches, inversePatches);
+            }
+            return state.copy;
+        }
+        /**
+         * @internal
+         * Finalize all drafts in the given state tree.
+         */
+
+    }, {
+        key: "finalizeTree",
+        value: function finalizeTree(root, path, patches, inversePatches) {
+            var _this2 = this;
+
+            var state = root[DRAFT_STATE];
+            if (state) {
+                root = this.useProxies ? state.copy : state.copy = shallowCopy(state.draft);
+            }
+
+            var onAssign = this.onAssign;
+
+            var finalizeProperty = function finalizeProperty(prop, value, parent) {
+                // Only `root` can be a draft in here.
+                var inDraft = !!state && parent === root;
+
+                if (isDraft(value)) {
+                    // prettier-ignore
+                    parent[prop] = value =
+                    // Patches are never generated for assigned properties.
+                    patches && inDraft && !state.assigned[prop] ? _this2.finalize(value, path.concat(prop), patches, inversePatches) : _this2.finalize(value);
+
+                    // Unchanged drafts are ignored.
+                    if (inDraft && value === state.base[prop]) return;
+                }
+                // Unchanged draft properties are ignored.
+                else if (inDraft && is(value, state.base[prop])) {
+                        return;
+                    }
+                    // Search new objects for unfinalized drafts. Frozen objects should never contain drafts.
+                    else if (isDraftable(value) && !Object.isFrozen(value)) {
+                            each(value, finalizeProperty);
+                        }
+
+                if (inDraft && onAssign) {
+                    onAssign(state, prop, value);
+                }
+            };
+
+            each(root, finalizeProperty);
+            return root;
+        }
+    }]);
+    return Immer;
+}();
+
+var immer = new Immer();
+
+/**
+ * The `produce` function takes a value and a "recipe function" (whose
+ * return value often depends on the base state). The recipe function is
+ * free to mutate its first argument however it wants. All mutations are
+ * only ever applied to a __copy__ of the base state.
+ *
+ * Pass only a function to create a "curried producer" which relieves you
+ * from passing the recipe function every time.
+ *
+ * Only plain objects and arrays are made mutable. All other objects are
+ * considered uncopyable.
+ *
+ * Note: This function is __bound__ to its `Immer` instance.
+ *
+ * @param {any} base - the initial state
+ * @param {Function} producer - function that receives a proxy of the base state as first argument and which can be freely modified
+ * @param {Function} patchListener - optional function that will be called with all the patches produced here
+ * @returns {any} a new state, or the initial state if nothing was modified
+ */
+var produce = immer.produce;
+
+/**
+ * Apply an array of Immer patches to the first argument.
+ *
+ * This function is a producer, which means copy-on-write is in effect.
+ */
+produce(applyPatches);
+
+var StateInstance = /*#__PURE__*/function () {
+  function StateInstance() {
+    _rollupPluginBabelHelpers._classCallCheck(this, StateInstance);
+    _rollupPluginBabelHelpers._defineProperty(this, "state", {});
+    _rollupPluginBabelHelpers._defineProperty(this, "mount", null);
+  }
+  _rollupPluginBabelHelpers._createClass(StateInstance, [{
+    key: "__updateObject",
+    value:
+    /// //////////////////////////////////////////////
+    /// Internal helper functions
+    /// //////////////////////////////////////////////
+
+    function __updateObject(target, update) {
+      // applies the changes
+      // for each key/value pair in update object
+      for (var _i = 0, _Object$entries = Object.entries(update); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _rollupPluginBabelHelpers._slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+        // if target has the relevant key and
+        // the type in target and update is the same
+        // eslint-disable-next-line no-prototype-builtins
+        if (target.hasOwnProperty(key) && _rollupPluginBabelHelpers._typeof(value) === _rollupPluginBabelHelpers._typeof(target[key])) {
+          // update value if string,number or boolean
+          if (['string', 'number', 'boolean'].includes(_rollupPluginBabelHelpers._typeof(value)) || Array.isArray(value) || Object.prototype.toString.call(value) === '[object Date]') {
+            target[key] = value;
+          } else {
+            // if type is object then go one level deeper
+            if (_rollupPluginBabelHelpers._typeof(value) === 'object') {
+              this.__updateObject(target[key], value);
+            }
+          }
+        }
+      }
+    }
+
+    /// //////////////////////////////////////////////
+    // State functions
+    /// //////////////////////////////////////////////
+  }, {
+    key: "getState",
+    value: function getState() {
+      return this.state;
+    }
+  }, {
+    key: "setState",
+    value: function setState(updated_state, skip_component_update) {
+      // Depricated: replace the current state with this one (legacy support)
+      this.state = updated_state;
+      if (skip_component_update) {
+        return;
+      }
+      if (this.mount) {
+        if (this.mount.setState) {
+          // make sure this mounted component has setState
+          this.mount.setState(updated_state);
+        }
+      }
+    }
+  }, {
+    key: "getActionState",
+    value: function getActionState(action, callback) {
+      if (this.mount) {
+        if (this.mount.getActionState) {
+          // make sure this mounted component has setState
+          this.mount.getActionState(action, callback);
+        } else {
+          callback();
+        }
+      } else {
+        callback();
+      }
+    }
+  }, {
+    key: "alterState",
+    value: function alterState(change, skip_component_update) {
+      var _this = this;
+      // does some immer magic (and calls setState)
+      if (change === undefined) {
+        return this.state;
+      }
+      if (_rollupPluginBabelHelpers._typeof(change) === 'object') {
+        var changed = produce(this.state, function (draft) {
+          _this.__updateObject(draft, change);
+        });
+        this.setState(changed, skip_component_update);
+        return changed;
+      } else {
+        var _changed = produce(this.state, change);
+        this.setState(_changed, skip_component_update);
+        return _changed;
+      }
+    }
+
+    /// //////////////////////////////////////////////
+    /// Mounting functions used by visual components
+    /// //////////////////////////////////////////////
+  }, {
+    key: "doMount",
+    value: function doMount(component_instance) {
+      this.mount = component_instance;
+    }
+  }, {
+    key: "unMount",
+    value: function unMount(component_instance) {
+      this.mount = null;
+    }
+  }, {
+    key: "updateView",
+    value: function updateView(action, arr, updated, data) {
+      // if the component is mounted we notify it to update its view
+      if (this.mount) {
+        if (this.mount.updateView) {
+          this.mount.updateView(action, arr, updated, data);
+        }
+      }
+      return true;
+    }
+  }]);
+  return StateInstance;
+}();
+var StateLess = /*#__PURE__*/function (_StateInstance) {
+  _rollupPluginBabelHelpers._inherits(StateLess, _StateInstance);
+  var _super = _rollupPluginBabelHelpers._createSuper(StateLess);
+  /**
+   * Used to manage internal state of instances having no internal state
+   */
+  function StateLess(props) {
+    var _this2;
+    _rollupPluginBabelHelpers._classCallCheck(this, StateLess);
+    _this2 = _super.call(this, props);
+    _rollupPluginBabelHelpers._defineProperty(_rollupPluginBabelHelpers._assertThisInitialized(_this2), "updateView", function (action, arr, updated, data) {
+      // extend by parent
+      return true;
+    });
+    _this2.props = props;
+
+    // check for component manager
+    if (!_this2.props.manager) {
+      var newLocal = 'Manager was not provided through props for component ' + _this2.props.id;
+      throw newLocal;
+    }
+    /*
+    // make sure the manager is of correct type
+    if (this.props.manager.constructor.name !== 'ComponentManager') {
+      // eslint-disable-next-line no-throw-literal
+      throw (
+        "Constructor must be component manager. Got '" +
+        this.props.manager.constructor.name +
+        "' for component " +
+        this.props.id
+      )
+    }
+    */
+
+    _this2.eventManager = _this2.props.manager.getEventManager();
+    return _this2;
+  }
+  _rollupPluginBabelHelpers._createClass(StateLess, [{
+    key: "triggerEvent",
+    value: function triggerEvent(event, data, evt) {
+      this.props.manager.getEventManager().addEvent(this.props.id, event, data, evt);
+    }
+  }, {
+    key: "triggerAction",
+    value: function triggerAction(action, data, evt) {
+      this.props.manager.getEventManager().addAction(this.props.id, action, data, null, evt);
+    }
+  }, {
+    key: "register",
+    value: function register(actions, events, component_info) {
+      this.props.manager.getEventManager().register(this.props.id, actions, events, component_info);
+    }
+  }, {
+    key: "setInstanceState",
+    value: function setInstanceState(state) {
+      if (this.stateManager) {
+        this.stateManager.setState(state);
+      }
+    }
+  }]);
+  return StateLess;
+}(StateInstance);
+var StateFull = /*#__PURE__*/function (_StateInstance2) {
+  _rollupPluginBabelHelpers._inherits(StateFull, _StateInstance2);
+  var _super2 = _rollupPluginBabelHelpers._createSuper(StateFull);
+  /**
+   * Used to manage internal state saving the state
+   */
+  function StateFull(props) {
+    var _this3;
+    _rollupPluginBabelHelpers._classCallCheck(this, StateFull);
+    _this3 = _super2.call(this, props);
+    _rollupPluginBabelHelpers._defineProperty(_rollupPluginBabelHelpers._assertThisInitialized(_this3), "updateView", function (action, arr, updated, data) {
+      // extend by parent
+      return true;
+    });
+    _this3.props = props;
+
+    // check for component manager
+    if (!_this3.props.manager) {
+      var newLocal = 'Manager was not provided through props for component ' + _this3.props.id;
+      throw newLocal;
+    }
+    /*
+    // make sure the manager is of correct type
+    if (this.props.manager.constructor.name !== 'ComponentManager') {
+      // eslint-disable-next-line no-throw-literal
+      throw (
+        "Constructor must be component manager. Got '" +
+        this.props.manager.constructor.name +
+        "' for component " +
+        this.props.id
+      )
+    }
+    */
+
+    _this3.eventManager = _this3.props.manager.getEventManager();
+    return _this3;
+  }
+  _rollupPluginBabelHelpers._createClass(StateFull, [{
+    key: "triggerEvent",
+    value: function triggerEvent(event, data, evt) {
+      this.props.manager.getEventManager().addEvent(this.props.id, event, data, evt);
+    }
+  }, {
+    key: "triggerAction",
+    value: function triggerAction(action, data, evt) {
+      this.props.manager.getEventManager().addAction(this.props.id, action, data, null, evt);
+    }
+  }, {
+    key: "register",
+    value: function register(actions, events, component_info) {
+      this.props.manager.getEventManager().register(this.props.id, actions, events, component_info);
+    }
+  }, {
+    key: "setInstanceState",
+    value: function setInstanceState(state) {
+      if (this.stateManager) {
+        this.stateManager.setState(state);
+      }
+    }
+  }]);
+  return StateFull;
+}(StateInstance);
+var StateBase = {
+  StateInstance: StateInstance,
+  StateLess: StateLess,
+  StateFull: StateFull
+};
+
+exports.StateFull = StateFull;
+exports.StateInstance = StateInstance;
+exports.StateLess = StateLess;
+exports["default"] = StateBase;
 //# sourceMappingURL=StateBase.js.map
